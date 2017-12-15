@@ -21,6 +21,7 @@ TODO
 
 int main()
 {
+    std::cout << "Game start\n";
     State* state = new StatePlay();
     while (Window::instance().getWindow()->isOpen())
     {

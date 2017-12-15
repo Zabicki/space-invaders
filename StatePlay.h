@@ -10,5 +10,5 @@ public:
     virtual void render();
     void pollEvent();
 private:
-
+    sf::RectangleShape rect;
 };
