@@ -37,7 +37,7 @@
 
 1513300249 source:/home/chrisfrog/git/StateManager.cpp
 
-1513373859 source:/home/chrisfrog/git/StatePlay.cpp
+1513374775 source:/home/chrisfrog/git/StatePlay.cpp
 	"StatePlay.h"
 
 1513373859 /home/chrisfrog/git/StatePlay.h
@@ -51,10 +51,11 @@
 
 1513300249 /home/chrisfrog/git/StateManager.h
 
-1513373812 /home/chrisfrog/git/Player.h
+1513374761 /home/chrisfrog/git/Player.h
 	<SFML/Graphics.hpp>
 	"Window.h"
+	<iostream>
 
-1513373812 source:/home/chrisfrog/git/Player.cpp
+1513374761 source:/home/chrisfrog/git/Player.cpp
 	"Player.h"
 

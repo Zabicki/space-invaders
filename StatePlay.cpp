@@ -15,7 +15,6 @@ void StatePlay::update()
 
 void StatePlay::render()
 {
-    std::cout << "Calling render method\n";
     Window::instance().getWindow()->clear();
     Window::instance().getWindow()->draw(sprite_background);
     Window::instance().getWindow()->draw(rect);
@@ -30,5 +29,6 @@ void StatePlay::pollEvent()
     {
         if (event.type == sf::Event::Closed)
             Window::instance().getWindow()->close();
+        player.update(event);
     }
 }
