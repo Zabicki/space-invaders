@@ -1,5 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include "Window.h"
+#include "State.h"
+#include "StateManager.h"
+#include "StatePlay.h"
 
 /*
 TODO
@@ -18,23 +21,11 @@ TODO
 
 int main()
 {
-    auto* window = Window::instance().getWindow();
-
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
-
-    while (window->isOpen())
+    State* state = new StatePlay();
+    while (Window::instance().getWindow()->isOpen())
     {
-        sf::Event event;
-        while (window->pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window->close();
-        }
-
-        window->clear();
-        window->draw(shape);
-        window->display();
+        state->update();
+        state->render();
     }
 
     return 0;

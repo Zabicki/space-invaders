@@ -5,7 +5,10 @@ class StatePlay : public State
 {
 public:
     StatePlay();
-    ~StatePlay();
+    ~StatePlay() {};
+    virtual void update();
+    virtual void render();
+    void pollEvent();
 private:
 
 };

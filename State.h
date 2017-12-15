@@ -1,14 +1,16 @@
 #pragma once
+#include <SFML/Graphics.hpp>
 #include "Window.h"
+#include <iostream>
 
 class State
 {
 public:
-    State() {};
+    State();
     virtual ~State() {};
     virtual void update() = 0;
     virtual void render() = 0;
-private:
-    //background texture
-    //background sprite
+protected:
+    sf::Texture texture_background;
+    sf::Sprite sprite_background;
 };
