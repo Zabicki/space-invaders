@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1513298120 source:/home/chrisfrog/Desktop/codeblocks_projects/space_invaders/Space Invaders/main.cpp
+	<SFML/Graphics.hpp>
+	"Window.h"
+
+1513296192 /home/chrisfrog/Desktop/codeblocks_projects/space_invaders/Space Invaders/Window.h
+	<SFML/Graphics.hpp>
+
+1513296192 source:/home/chrisfrog/Desktop/codeblocks_projects/space_invaders/Space Invaders/Window.cpp
+	"Window.h"
+
