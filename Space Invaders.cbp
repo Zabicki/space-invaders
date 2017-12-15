@@ -32,6 +32,14 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="State.cpp" />
+		<Unit filename="State.h" />
+		<Unit filename="StateManager.cpp" />
+		<Unit filename="StateManager.h" />
+		<Unit filename="StatePlay.cpp" />
+		<Unit filename="StatePlay.h" />
+		<Unit filename="Window.cpp" />
+		<Unit filename="Window.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
