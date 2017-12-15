@@ -2,9 +2,10 @@
 
 StatePlay::StatePlay()
 {
-    rect.setFillColor(sf::Color::Blue);
-    rect.setSize({100.f, 50.f});
-    rect.setPosition({300.f, 350.f});
+    rect.setFillColor(sf::Color::Magenta);
+    rect.setSize({800.f, 20.f});
+    rect.setOrigin(rect.getSize().x / 2, rect.getSize().y /2);
+    rect.setPosition({400,590});
 }
 
 void StatePlay::update()
@@ -18,6 +19,7 @@ void StatePlay::render()
     Window::instance().getWindow()->clear();
     Window::instance().getWindow()->draw(sprite_background);
     Window::instance().getWindow()->draw(rect);
+    Window::instance().getWindow()->draw(player.getCannon());
     Window::instance().getWindow()->display();
 }
 

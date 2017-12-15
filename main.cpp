@@ -28,6 +28,5 @@ int main()
         state->update();
         state->render();
     }
-
     return 0;
 }

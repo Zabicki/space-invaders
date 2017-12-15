@@ -1,5 +1,6 @@
 #pragma once
 #include "State.h"
+#include "Player.h"
 
 class StatePlay : public State
 {
@@ -11,4 +12,5 @@ public:
     void pollEvent();
 private:
     sf::RectangleShape rect;
+    Player player;
 };
