@@ -12,10 +12,11 @@ Player::Player()
     cannon.setFillColor(sf::Color::Green);
     cannon.setSize({10,30});
     cannon.setOrigin(cannon.getSize().x / 2, cannon.getSize().y /2);
-    cannon.setPosition(Window::instance().getWindow()->getSize().x / 10, Window::instance().getWindow()->getSize().y - 35);
+    cannon.setPosition(Window::instance().getWindow()->getSize().x / 2, Window::instance().getWindow()->getSize().y - 35);
     speed = 0;
     direction = NONE;
     flag = true;
+    bullet = NULL;
 }
 
 Player::~Player()
@@ -38,7 +39,6 @@ void Player::update(float dt) //dt == deltaTime
     for(std::vector<Bullet>::iterator it = bullets.begin(); it != bullets.end(); ++it)
     {
         it->move(dt);
-        it->showInfo();
     }
 }
 
@@ -59,7 +59,7 @@ void Player::handleInput(sf::Event event)
         direction = RIGHT;
         speed = movingSpeed;
     }
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
         fire();
 }
 
@@ -74,11 +74,7 @@ bool Player::sideCollision()
 
 void Player::fire()
 {
-    if (flag)
-    {
-        bullets.push_back(Bullet(cannon.getPosition(), 0.f));
-        flag = false;
-    }
+    bullets.push_back(Bullet(cannon.getPosition(), -300.f));
 }
 std::vector<Bullet>& Player::getBullets()
 {

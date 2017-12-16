@@ -30,4 +30,5 @@ private:
     float speed; //changed whether the direction changes
     Direction direction;
     std::vector <Bullet> bullets;
+    Bullet* bullet;
 };

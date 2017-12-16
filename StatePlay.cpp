@@ -22,7 +22,7 @@ void StatePlay::render()
     std::vector<Bullet> v = player.getBullets();
     for(std::vector<Bullet>::iterator it = v.begin(); it != v.end(); ++it)
     {
-        Window::instance().getWindow()->draw(*(it->getSprite()));
+        Window::instance().getWindow()->draw(it->getSprite());
     }
     Window::instance().getWindow()->display();
 }

@@ -3,6 +3,8 @@
 #include "State.h"
 #include "StateManager.h"
 #include "StatePlay.h"
+#include "Player.h"
+#include "Bullet.h"
 
 /*
 TODO

@@ -19,12 +19,14 @@
 1513298657 source:/home/chrisfrog/Desktop/git/Window.cpp
 	"Window.h"
 
-1513441950 source:/home/chrisfrog/git/main.cpp
+1513458467 source:/home/chrisfrog/git/main.cpp
 	<SFML/Graphics.hpp>
 	"Window.h"
 	"State.h"
 	"StateManager.h"
 	"StatePlay.h"
+	"Player.h"
+	"Bullet.h"
 
 1513298657 /home/chrisfrog/git/Window.h
 	<SFML/Graphics.hpp>
@@ -37,7 +39,7 @@
 
 1513300249 source:/home/chrisfrog/git/StateManager.cpp
 
-1513453566 source:/home/chrisfrog/git/StatePlay.cpp
+1513458860 source:/home/chrisfrog/git/StatePlay.cpp
 	"StatePlay.h"
 
 1513449880 /home/chrisfrog/git/StatePlay.h
@@ -52,20 +54,20 @@
 
 1513300249 /home/chrisfrog/git/StateManager.h
 
-1513452569 /home/chrisfrog/git/Player.h
+1513458860 /home/chrisfrog/git/Player.h
 	<SFML/Graphics.hpp>
 	"Window.h"
 	"Bullet.h"
 	<iostream>
 
-1513453413 source:/home/chrisfrog/git/Player.cpp
+1513459254 source:/home/chrisfrog/git/Player.cpp
 	"Player.h"
 
-1513453554 /home/chrisfrog/git/Bullet.h
+1513458588 /home/chrisfrog/git/Bullet.h
 	<SFML/Graphics.hpp>
 	"Window.h"
 	<iostream>
 
-1513453554 source:/home/chrisfrog/git/Bullet.cpp
+1513459363 source:/home/chrisfrog/git/Bullet.cpp
 	"Bullet.h"
 
