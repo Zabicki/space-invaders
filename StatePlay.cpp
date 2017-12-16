@@ -19,10 +19,10 @@ void StatePlay::render()
     Window::instance().getWindow()->draw(sprite_background);
     Window::instance().getWindow()->draw(rect);
     Window::instance().getWindow()->draw(player.getCannon());
-    std::vector<Bullet> v = player.getBullets();
-    for(std::vector<Bullet>::iterator it = v.begin(); it != v.end(); ++it)
+    std::vector<Bullet*> v = player.getBullets();
+    for(std::vector<Bullet*>::iterator it = v.begin(); it != v.end(); ++it)
     {
-        Window::instance().getWindow()->draw(it->getSprite());
+        Window::instance().getWindow()->draw((*it)->getSprite());
     }
     Window::instance().getWindow()->display();
 }
@@ -30,6 +30,7 @@ void StatePlay::render()
 void StatePlay::pollEvent()
 {
     sf::Event event;
+    player.checkKeyboardKeys();
     while (Window::instance().getWindow()->pollEvent(event))
     {
         if (event.type == sf::Event::Closed)

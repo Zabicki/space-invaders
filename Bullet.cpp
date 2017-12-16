@@ -1,7 +1,5 @@
 #include "Bullet.h"
 
-//wtf?
-
 Bullet::Bullet()
 {
 
