@@ -7,8 +7,9 @@ class StatePlay : public State
 public:
     StatePlay();
     ~StatePlay() {};
-    virtual void update();
+    virtual void update(float);
     virtual void render();
+    virtual void handleInput();
     void pollEvent();
 private:
     sf::RectangleShape rect;

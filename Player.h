@@ -3,13 +3,23 @@
 #include "Window.h"
 #include <iostream>
 
+enum Direction
+{
+    NONE,
+    LEFT,
+    RIGHT
+};
+
 class Player
 {
 public:
     Player();
     ~Player();
     sf::RectangleShape getCannon();
-    void update(sf::Event);
+    void update(float);
+    void handleInput(sf::Event);
 private:
     sf::RectangleShape cannon;
+    float movingSpeed;
+    Direction direction;
 };

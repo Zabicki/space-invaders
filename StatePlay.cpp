@@ -8,9 +8,9 @@ StatePlay::StatePlay()
     rect.setPosition({400,590});
 }
 
-void StatePlay::update()
+void StatePlay::update(float timeStep)
 {
-    pollEvent();
+    player.update(timeStep);
 }
 
 void StatePlay::render()
@@ -29,6 +29,11 @@ void StatePlay::pollEvent()
     {
         if (event.type == sf::Event::Closed)
             Window::instance().getWindow()->close();
-        player.update(event);
+        player.handleInput(event);
     }
+}
+
+void StatePlay::handleInput()
+{
+    pollEvent();
 }

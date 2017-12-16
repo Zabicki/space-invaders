@@ -23,9 +23,18 @@ int main()
 {
     std::cout << "Game start\n";
     State* state = new StatePlay();
+    sf::Clock clock;
+    sf::Time timeSinceLastUpdate = sf::Time::Zero;
     while (Window::instance().getWindow()->isOpen())
     {
-        state->update();
+        state->handleInput();
+        timeSinceLastUpdate += clock.restart();
+        while (timeSinceLastUpdate > sf::seconds(1.f / 60.f))
+        {
+            timeSinceLastUpdate -= sf::seconds(1.f / 60.f);
+            state->handleInput();
+            state->update(1/60.f);
+        }
         state->render();
     }
     return 0;
