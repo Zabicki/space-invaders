@@ -37,6 +37,10 @@
 			<Add library="sfml-window" />
 			<Add library="sfml-system" />
 		</Linker>
+		<Unit filename="Bullet.cpp" />
+		<Unit filename="Bullet.h" />
+		<Unit filename="Player.cpp" />
+		<Unit filename="Player.h" />
 		<Unit filename="State.cpp" />
 		<Unit filename="State.h" />
 		<Unit filename="StateManager.cpp" />

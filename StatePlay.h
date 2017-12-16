@@ -1,6 +1,7 @@
 #pragma once
 #include "State.h"
 #include "Player.h"
+#include "Bullet.h"
 
 class StatePlay : public State
 {
