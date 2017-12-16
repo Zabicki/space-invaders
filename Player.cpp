@@ -1,12 +1,13 @@
 #include "Player.h"
 
 Player::Player()
+:movingSpeed(400)
 {
     cannon.setFillColor(sf::Color::Green);
     cannon.setSize({10,30});
     cannon.setOrigin(cannon.getSize().x / 2, cannon.getSize().y /2);
-    cannon.setPosition(Window::instance().getWindow()->getSize().x / 2, Window::instance().getWindow()->getSize().y - 35);
-    movingSpeed = 400;
+    cannon.setPosition(Window::instance().getWindow()->getSize().x / 10, Window::instance().getWindow()->getSize().y - 35);
+    speed = 0;
     direction = NONE;
 }
 
@@ -22,10 +23,8 @@ sf::RectangleShape Player::getCannon()
 
 void Player::update(float dt) //dt == deltaTime
 {
-    if (direction == LEFT)
-        cannon.move(-movingSpeed * dt, 0);
-    else if (direction == RIGHT)
-        cannon.move(movingSpeed * dt, 0);
+    if (!sideCollision() && direction != NONE)
+        cannon.move(speed * dt, 0);
 }
 
 void Player::handleInput(sf::Event event)
@@ -36,7 +35,22 @@ void Player::handleInput(sf::Event event)
             direction = NONE;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && direction != LEFT)
+    {
         direction = LEFT;
+        speed = -movingSpeed;
+    }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && direction != RIGHT)
+    {
         direction = RIGHT;
+        speed = movingSpeed;
+    }
+}
+
+//returns true if player crosses screen's boundaries
+bool Player::sideCollision()
+{
+    if (cannon.getPosition().x < (0 + cannon.getSize().x) && direction == LEFT ||
+        cannon.getPosition().x > (Window::instance().getWindow()->getSize().x - cannon.getSize().x) && direction == RIGHT)
+            return true;
+    return false;
 }

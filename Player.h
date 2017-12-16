@@ -18,8 +18,10 @@ public:
     sf::RectangleShape getCannon();
     void update(float);
     void handleInput(sf::Event);
+    bool sideCollision();
 private:
     sf::RectangleShape cannon;
-    float movingSpeed;
+    const float movingSpeed; //constant, helps the 'speed' variable to set it's proper value
+    float speed; //changed whether the direction changes
     Direction direction;
 };
