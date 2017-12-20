@@ -2,6 +2,8 @@
 #include "State.h"
 #include "Player.h"
 #include "Bullet.h"
+#include "Enemy.h"
+#include "Enemy1.h"
 
 class StatePlay : public State
 {
@@ -15,4 +17,5 @@ public:
 private:
     sf::RectangleShape rect;
     Player player;
+    Enemy* enemy;
 };

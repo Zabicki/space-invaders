@@ -13,7 +13,7 @@ public:
     bool checkCollision();
     void setFireDirection(int);
     void setSpeed(float);
-    sf::RectangleShape getSprite();
+    sf::RectangleShape* getSprite();
     void showInfo();
 private:
     sf::RectangleShape bullet;

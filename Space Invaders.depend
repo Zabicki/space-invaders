@@ -39,13 +39,15 @@
 
 1513300249 source:/home/chrisfrog/git/StateManager.cpp
 
-1513463326 source:/home/chrisfrog/git/StatePlay.cpp
+1513639663 source:/home/chrisfrog/git/StatePlay.cpp
 	"StatePlay.h"
 
-1513449880 /home/chrisfrog/git/StatePlay.h
+1513637974 /home/chrisfrog/git/StatePlay.h
 	"State.h"
 	"Player.h"
 	"Bullet.h"
+	"Enemy.h"
+	"Enemy1.h"
 
 1513441275 /home/chrisfrog/git/State.h
 	<SFML/Graphics.hpp>
@@ -54,20 +56,35 @@
 
 1513300249 /home/chrisfrog/git/StateManager.h
 
-1513463803 /home/chrisfrog/git/Player.h
+1513639624 /home/chrisfrog/git/Player.h
 	<SFML/Graphics.hpp>
 	"Window.h"
 	"Bullet.h"
+	"Enemy.h"
 	<iostream>
 
-1513463383 source:/home/chrisfrog/git/Player.cpp
+1513724860 source:/home/chrisfrog/git/Player.cpp
 	"Player.h"
 
-1513461222 /home/chrisfrog/git/Bullet.h
+1513639624 /home/chrisfrog/git/Bullet.h
 	<SFML/Graphics.hpp>
 	"Window.h"
 	<iostream>
 
-1513461222 source:/home/chrisfrog/git/Bullet.cpp
+1513639624 source:/home/chrisfrog/git/Bullet.cpp
 	"Bullet.h"
+
+1513627155 source:/home/chrisfrog/git/Enemy.cpp
+	"Enemy.h"
+
+1513639624 /home/chrisfrog/git/Enemy.h
+	<SFML/Graphics.hpp>
+	"Bullet.h"
+	"Window.h"
+
+1513639809 source:/home/chrisfrog/git/Enemy1.cpp
+	"Enemy1.h"
+
+1513639624 /home/chrisfrog/git/Enemy1.h
+	"Enemy.h"
 

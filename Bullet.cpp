@@ -29,9 +29,9 @@ void Bullet::setSpeed(float v)
     speed = v;
 }
 
-sf::RectangleShape Bullet::getSprite()
+sf::RectangleShape* Bullet::getSprite()
 {
-    return bullet;
+    return &bullet;
 }
 
 void Bullet::showInfo()

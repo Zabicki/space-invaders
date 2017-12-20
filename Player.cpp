@@ -3,7 +3,8 @@
 /*
 TODO
 [] smth wrong with the collision system, check this
-
+[]Program crashed in some bullet situations, has to be fixed asap (return code 134(0x86)
+  When the last fired bulet is colliding with enemy, program crashes
 */
 
 Player::Player()
@@ -39,8 +40,6 @@ void Player::update(float dt) //dt == deltaTime
 
     //moving player's bullets
 
-    checkBulletCollision();
-
     for(std::vector<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); ++it)
     {
         (*it)->move(dt);
@@ -49,7 +48,7 @@ void Player::update(float dt) //dt == deltaTime
     if (substract)
         timer -= dt;
 
-    if (timer < 0)
+    if (timer <= 0)
     {
         timer = reloadTime;
         substract = false;
@@ -86,8 +85,7 @@ bool Player::sideCollision()
 }
 
 void Player::fire()
-{
-    bullets.push_back(new Bullet(cannon.getPosition(), -400.f));
+{bullets.push_back(new Bullet({cannon.getPosition().x, cannon.getPosition().y - cannon.getSize().y / 2}, -400.f));
     std::cout << "Bullets: " << bullets.size() << "\n";
     substract = true;
     canShoot = false;
@@ -97,21 +95,6 @@ std::vector<Bullet*>& Player::getBullets()
     return bullets;
 }
 
-bool Player::checkBulletCollision()
-{
-    for(std::vector<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); ++it)
-    {
-        if ((*it)->getSprite().getPosition().y < 0)
-        {
-            delete *it;
-            bullets.erase(it);
-            std::cout << "Bullets: " << bullets.size() << "\n";
-            if (bullets.size() == 0)
-                break;
-        }
-    }
-}
-
 //additional function, using it outside the event loop in StatePlay reduces annoying delay caused by event to 0.
 void Player::checkKeyboardKeys()
 {
@@ -119,5 +102,34 @@ void Player::checkKeyboardKeys()
     {
         fire();
         canShoot = false;
+    }
+}
+
+bool Player::checkBulletCollision(Enemy* enemy)
+{
+    for(std::vector<Bullet*>::iterator it = bullets.begin(); it != bullets.end();)
+    {
+        if ((*it)->getSprite()->getGlobalBounds().intersects(enemy->getSprite()->getGlobalBounds()))
+        {
+            delete *it;
+            bullets.erase(it);
+            enemy->destroy();
+            if (bullets.size() == 0)
+                break;
+        }
+        else
+            ++it;
+    }
+
+    for(std::vector<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); ++it)
+    {
+        if ((*it)->getSprite()->getPosition().y < 0)
+        {
+            delete *it;
+            bullets.erase(it);
+            std::cout << "Bullets: " << bullets.size() << "\n";
+            if (bullets.size() == 0)
+                break;
+        }
     }
 }

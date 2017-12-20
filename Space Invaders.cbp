@@ -39,6 +39,10 @@
 		</Linker>
 		<Unit filename="Bullet.cpp" />
 		<Unit filename="Bullet.h" />
+		<Unit filename="Enemy.cpp" />
+		<Unit filename="Enemy.h" />
+		<Unit filename="Enemy1.cpp" />
+		<Unit filename="Enemy1.h" />
 		<Unit filename="Player.cpp" />
 		<Unit filename="Player.h" />
 		<Unit filename="State.cpp" />

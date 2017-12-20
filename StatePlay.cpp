@@ -2,15 +2,18 @@
 
 StatePlay::StatePlay()
 {
-    rect.setFillColor(sf::Color::Magenta);
+    rect.setFillColor(sf::Color::Red);
     rect.setSize({800.f, 20.f});
     rect.setOrigin(rect.getSize().x / 2, rect.getSize().y /2);
     rect.setPosition({400,590});
+    enemy = new Enemy1();
 }
 
 void StatePlay::update(float timeStep)
 {
     player.update(timeStep);
+    player.checkBulletCollision(enemy);
+    enemy->update(timeStep);
 }
 
 void StatePlay::render()
@@ -19,10 +22,11 @@ void StatePlay::render()
     Window::instance().getWindow()->draw(sprite_background);
     Window::instance().getWindow()->draw(rect);
     Window::instance().getWindow()->draw(player.getCannon());
+    Window::instance().getWindow()->draw(*enemy->getSprite());
     std::vector<Bullet*> v = player.getBullets();
     for(std::vector<Bullet*>::iterator it = v.begin(); it != v.end(); ++it)
     {
-        Window::instance().getWindow()->draw((*it)->getSprite());
+        Window::instance().getWindow()->draw(*(*it)->getSprite());
     }
     Window::instance().getWindow()->display();
 }
