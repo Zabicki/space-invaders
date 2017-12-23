@@ -37,7 +37,7 @@ void StatePlay::pollEvent()
     player.checkKeyboardKeys();
     while (Window::instance().getWindow()->pollEvent(event))
     {
-        if (event.type == sf::Event::Closed)
+        if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
             Window::instance().getWindow()->close();
         player.handleInput(event);
     }
