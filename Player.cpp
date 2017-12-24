@@ -105,20 +105,28 @@ void Player::checkKeyboardKeys()
     }
 }
 
-bool Player::checkBulletCollision(Enemy* enemy)
+bool Player::checkBulletCollision(std::vector<Enemy*> enemies)
 {
     for(std::vector<Bullet*>::iterator it = bullets.begin(); it != bullets.end();)
     {
-        if ((*it)->getSprite()->getGlobalBounds().intersects(enemy->getSprite()->getGlobalBounds()))
+        for(std::vector<Enemy*>::iterator i = enemies.begin(); i != enemies.end();)
         {
-            delete *it;
-            bullets.erase(it);
-            enemy->destroy();
-            if (bullets.size() == 0)
-                break;
+            if ((*it)->getSprite()->getGlobalBounds().intersects((*i)->getSprite()->getGlobalBounds()))
+            {
+                delete *it;
+                bullets.erase(it);
+                if (bullets.size() == 0)
+                    break;
+
+                (*i)->destroy();
+                delete *i;
+                enemies.erase(i);
+                if (enemies.size() == 0)
+                    break;
+            }
+            else
+                ++i;
         }
-        else
-            ++it;
     }
 
     for(std::vector<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); ++it)

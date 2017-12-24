@@ -10,3 +10,6 @@ Enemy::~Enemy()
 
 }
 
+float Enemy::speed = -200;
+
+Dir Enemy::direction = left;

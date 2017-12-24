@@ -14,8 +14,9 @@ public:
     virtual void render();
     virtual void handleInput();
     void pollEvent();
+    void spawnEnemies(int amount);
 private:
     sf::RectangleShape rect;
     Player player;
-    Enemy* enemy;
+    std::vector <Enemy*> enemies;
 };

@@ -2,13 +2,18 @@
 
 Enemy1::Enemy1()
 {
-    //fixed values used for testing purpouses
     rect.setSize({30.f, 30.f});
     rect.setFillColor(sf::Color::Red);
     rect.setOrigin(rect.getSize().x / 2, rect.getSize().y / 2);
     rect.setPosition(Window::instance().getWindow()->getSize().x / 2, 300);
-    direction = left;
-    speed = -200;
+}
+
+Enemy1::Enemy1(sf::Vector2f position)
+{
+    rect.setSize({30.f, 30.f});
+    rect.setFillColor(sf::Color::Red);
+    rect.setOrigin(rect.getSize().x / 2, rect.getSize().y / 2);
+    rect.setPosition(position);
 }
 
 Enemy1::~Enemy1()
@@ -23,7 +28,7 @@ void Enemy1::move(float dt)
 
 void Enemy1::shoot()
 {
-
+    bullets.push_back(new Bullet({rect.getPosition().x, rect.getPosition().y + 20}, 200));
 }
 
 void Enemy1::update(float dt)

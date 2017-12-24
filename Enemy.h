@@ -25,7 +25,8 @@ public:
     virtual void destroy() = 0;
 protected:
     sf::RectangleShape rect; //later switched to sf::Texture
-    float speed; //make this static
+    static float speed;
+    std::vector <Bullet*> bullets;
     float fireRate;
-    Dir direction;
+    static Dir direction;
 };

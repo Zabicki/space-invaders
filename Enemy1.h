@@ -5,6 +5,7 @@ class Enemy1 : public Enemy
 {
 public:
     Enemy1();
+    Enemy1(sf::Vector2f);
     ~Enemy1();
     virtual void move(float);
     virtual void shoot();

@@ -6,14 +6,16 @@ StatePlay::StatePlay()
     rect.setSize({800.f, 20.f});
     rect.setOrigin(rect.getSize().x / 2, rect.getSize().y /2);
     rect.setPosition({400,590});
-    enemy = new Enemy1();
 }
 
 void StatePlay::update(float timeStep)
 {
     player.update(timeStep);
-    player.checkBulletCollision(enemy);
-    enemy->update(timeStep);
+    player.checkBulletCollision(enemies);
+    for(std::vector<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); ++it)
+    {
+        //*it->update(dt);
+    }
 }
 
 void StatePlay::render()
@@ -22,7 +24,11 @@ void StatePlay::render()
     Window::instance().getWindow()->draw(sprite_background);
     Window::instance().getWindow()->draw(rect);
     Window::instance().getWindow()->draw(player.getCannon());
-    Window::instance().getWindow()->draw(*enemy->getSprite());
+    for(std::vector<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); ++it)
+    {
+        Window::instance().getWindow()->draw(*(*it)->getSprite());
+    }
+
     std::vector<Bullet*> v = player.getBullets();
     for(std::vector<Bullet*>::iterator it = v.begin(); it != v.end(); ++it)
     {
@@ -46,4 +52,22 @@ void StatePlay::pollEvent()
 void StatePlay::handleInput()
 {
     pollEvent();
+}
+
+void StatePlay::spawnEnemies(int amount)
+{
+    sf::Vector2f enemyPosition = {200, 115};
+    for (int i = 1; i <= amount; ++i)
+    {
+        enemies.push_back(new Enemy1(enemyPosition));
+        if (i % 11 == 0)
+        {
+            enemyPosition.x = 200;
+            enemyPosition.y += 40;
+        }
+        else
+        {
+            enemyPosition.x += 40;
+        }
+    }
 }
