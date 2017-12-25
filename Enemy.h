@@ -23,10 +23,10 @@ public:
     virtual void checkBulletCollision() = 0;
     virtual void checkSideCollision() = 0;
     virtual void destroy() = 0;
+    static Dir direction;
+    static float speed;
 protected:
     sf::RectangleShape rect; //later switched to sf::Texture
-    static float speed;
     std::vector <Bullet*> bullets;
     float fireRate;
-    static Dir direction;
 };

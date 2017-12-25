@@ -4,7 +4,7 @@ Window::Window()
 :width(800),
  height(600)
 {
-	window.create(sf::VideoMode(width,height), "Space Invaders v0.1", sf::Style::Close | sf::Style::Titlebar);
+	window.create(sf::VideoMode(width,height), "Space Invaders v0.3", sf::Style::Close | sf::Style::Titlebar);
 }
 
 Window::~Window() {}

@@ -3,7 +3,7 @@
 Enemy1::Enemy1()
 {
     rect.setSize({30.f, 30.f});
-    rect.setFillColor(sf::Color::Red);
+    rect.setFillColor(sf::Color::White);
     rect.setOrigin(rect.getSize().x / 2, rect.getSize().y / 2);
     rect.setPosition(Window::instance().getWindow()->getSize().x / 2, 300);
 }
@@ -11,7 +11,8 @@ Enemy1::Enemy1()
 Enemy1::Enemy1(sf::Vector2f position)
 {
     rect.setSize({30.f, 30.f});
-    rect.setFillColor(sf::Color::Red);
+    rect.setFillColor(sf::Color::White);
+    rect.setFillColor(sf::Color(255,255,255,50));
     rect.setOrigin(rect.getSize().x / 2, rect.getSize().y / 2);
     rect.setPosition(position);
 }
@@ -33,7 +34,7 @@ void Enemy1::shoot()
 
 void Enemy1::update(float dt)
 {
-    checkSideCollision();
+    //checkSideCollision();
     move(dt);
 }
 
@@ -54,12 +55,12 @@ sf::RectangleShape* Enemy1::getSprite()
 
 void Enemy1::checkSideCollision()
 {
-    if (rect.getPosition().x <= 0 && direction == left)
+    if (rect.getPosition().x <= 15 && direction == left)
     {
         speed = -speed;
         direction = right;
     }
-    else if (rect.getPosition().x >= Window::instance().getWindow()->getSize().x && direction == right)
+    else if (rect.getPosition().x >= Window::instance().getWindow()->getSize().x - 15 && direction == right)
     {
         speed = -speed;
         direction = left;

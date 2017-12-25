@@ -29,7 +29,7 @@ public:
     void handleInput(sf::Event);
     bool sideCollision();
     void fire(); //fire a bullet
-    bool checkBulletCollision(std::vector<Enemy*> enemies); //TODO: add std::vector<Enemies*> enemies vector to function's parameters
+    bool checkBulletCollision(std::vector<Enemy*>* enemies); //TODO: add std::vector<Enemies*> enemies vector to function's parameters
     void checkKeyboardKeys();
 private:
     sf::RectangleShape cannon;

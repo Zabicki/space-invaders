@@ -85,7 +85,7 @@ bool Player::sideCollision()
 }
 
 void Player::fire()
-{bullets.push_back(new Bullet({cannon.getPosition().x, cannon.getPosition().y - cannon.getSize().y / 2}, -400.f));
+{bullets.push_back(new Bullet({cannon.getPosition().x, cannon.getPosition().y - cannon.getSize().y / 2}, -600.f));
     std::cout << "Bullets: " << bullets.size() << "\n";
     substract = true;
     canShoot = false;
@@ -105,28 +105,33 @@ void Player::checkKeyboardKeys()
     }
 }
 
-bool Player::checkBulletCollision(std::vector<Enemy*> enemies)
+bool Player::checkBulletCollision(std::vector<Enemy*>* enemies)
 {
+    bool flag;
     for(std::vector<Bullet*>::iterator it = bullets.begin(); it != bullets.end();)
     {
-        for(std::vector<Enemy*>::iterator i = enemies.begin(); i != enemies.end();)
+        flag = false;
+        for(std::vector<Enemy*>::iterator i = (*enemies).begin(); i != (*enemies).end();)
         {
             if ((*it)->getSprite()->getGlobalBounds().intersects((*i)->getSprite()->getGlobalBounds()))
             {
+                //destroy bullet
                 delete *it;
                 bullets.erase(it);
-                if (bullets.size() == 0)
-                    break;
-
+                //destroy enemy
                 (*i)->destroy();
                 delete *i;
-                enemies.erase(i);
-                if (enemies.size() == 0)
-                    break;
+                enemies->erase(i);
+
+                //flag set to avoid std::vector<>::iterator issues
+                flag = true;
+                break;
             }
             else
                 ++i;
         }
+        if (!flag)
+            ++it;
     }
 
     for(std::vector<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); ++it)

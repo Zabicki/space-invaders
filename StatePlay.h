@@ -15,6 +15,7 @@ public:
     virtual void handleInput();
     void pollEvent();
     void spawnEnemies(int amount);
+    bool checkSideCollision();
 private:
     sf::RectangleShape rect;
     Player player;

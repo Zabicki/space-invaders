@@ -6,15 +6,17 @@ StatePlay::StatePlay()
     rect.setSize({800.f, 20.f});
     rect.setOrigin(rect.getSize().x / 2, rect.getSize().y /2);
     rect.setPosition({400,590});
+    spawnEnemies(55);
 }
 
 void StatePlay::update(float timeStep)
 {
     player.update(timeStep);
-    player.checkBulletCollision(enemies);
+    player.checkBulletCollision(&enemies);
+    checkSideCollision();
     for(std::vector<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); ++it)
     {
-        //*it->update(dt);
+        (*it)->update(timeStep);
     }
 }
 
@@ -68,6 +70,29 @@ void StatePlay::spawnEnemies(int amount)
         else
         {
             enemyPosition.x += 40;
+        }
+    }
+}
+
+bool StatePlay::checkSideCollision()
+{
+    for (std::vector<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); ++it)
+    {
+        if (Enemy::direction == right)
+        {
+            if ((*it)->getSprite()->getPosition().x + 15 >= Window::instance().getWindow()->getSize().x)
+            {
+                Enemy::direction = left;
+                Enemy::speed = -Enemy::speed;
+            }
+        }
+        else
+        {
+            if ((*it)->getSprite()->getPosition().x - 15 <= 0)
+            {
+                Enemy::direction = right;
+                Enemy::speed = -Enemy::speed;
+            }
         }
     }
 }
