@@ -2,10 +2,6 @@
 
 StatePlay::StatePlay()
 {
-    rect.setFillColor(sf::Color::Red);
-    rect.setSize({800.f, 20.f});
-    rect.setOrigin(rect.getSize().x / 2, rect.getSize().y /2);
-    rect.setPosition({400,590});
     spawnEnemies(55);
 }
 
@@ -31,7 +27,6 @@ void StatePlay::render()
 {
     Window::instance().getWindow()->clear();
     Window::instance().getWindow()->draw(sprite_background);
-    Window::instance().getWindow()->draw(rect);
     Window::instance().getWindow()->draw(player.getCannon());
     for(std::vector<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); ++it)
     {
@@ -43,6 +38,7 @@ void StatePlay::render()
     {
         Window::instance().getWindow()->draw(*(*it)->getSprite());
     }
+    Window::instance().getWindow()->draw(player.getPoints().getText());
     Window::instance().getWindow()->display();
 }
 

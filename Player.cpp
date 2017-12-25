@@ -123,6 +123,9 @@ bool Player::checkBulletCollision(std::vector<Enemy*>* enemies)
                 delete *i;
                 enemies->erase(i);
 
+                //add points
+                points.add();
+
                 //flag set to avoid std::vector<>::iterator issues
                 flag = true;
                 break;
@@ -145,4 +148,9 @@ bool Player::checkBulletCollision(std::vector<Enemy*>* enemies)
                 break;
         }
     }
+}
+
+Points Player::getPoints()
+{
+    return points;
 }

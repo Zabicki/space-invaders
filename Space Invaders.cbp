@@ -45,6 +45,8 @@
 		<Unit filename="Enemy1.h" />
 		<Unit filename="Player.cpp" />
 		<Unit filename="Player.h" />
+		<Unit filename="Points.cpp" />
+		<Unit filename="Points.h" />
 		<Unit filename="State.cpp" />
 		<Unit filename="State.h" />
 		<Unit filename="StateManager.cpp" />

@@ -17,7 +17,6 @@ public:
     void spawnEnemies(int amount);
     bool checkSideCollision();
 private:
-    sf::RectangleShape rect;
     Player player;
     std::vector <Enemy*> enemies;
 };

@@ -3,6 +3,7 @@
 #include "Window.h"
 #include "Bullet.h"
 #include "Enemy.h"
+#include "Points.h"
 #include <iostream>
 
 /*
@@ -31,6 +32,7 @@ public:
     void fire(); //fire a bullet
     bool checkBulletCollision(std::vector<Enemy*>* enemies); //TODO: add std::vector<Enemies*> enemies vector to function's parameters
     void checkKeyboardKeys();
+    Points getPoints();
 private:
     sf::RectangleShape cannon;
     bool canShoot;
@@ -41,4 +43,5 @@ private:
     float speed; //changed whether the direction changes
     Direction direction;
     std::vector <Bullet*> bullets;
+    Points points;
 };
