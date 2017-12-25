@@ -20,6 +20,8 @@ Player::Player()
     substract = false;
     reloadTime = 0.2f;
     timer = reloadTime;
+    lives = 3;
+    isAlive = true;
 }
 
 Player::~Player()
@@ -126,6 +128,9 @@ bool Player::checkBulletCollision(std::vector<Enemy*>* enemies)
                 //add points
                 points.add();
 
+                //increase a chance for enemies to shoot
+                Enemy::shotChance += 10;
+
                 //flag set to avoid std::vector<>::iterator issues
                 flag = true;
                 break;
@@ -137,20 +142,34 @@ bool Player::checkBulletCollision(std::vector<Enemy*>* enemies)
             ++it;
     }
 
-    for(std::vector<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); ++it)
+    for(std::vector<Bullet*>::iterator it = bullets.begin(); it != bullets.end();)
     {
         if ((*it)->getSprite()->getPosition().y < 0)
         {
             delete *it;
             bullets.erase(it);
             std::cout << "Bullets: " << bullets.size() << "\n";
-            if (bullets.size() == 0)
-                break;
         }
+        else
+            ++it;
     }
 }
 
 Points Player::getPoints()
 {
     return points;
+}
+
+void Player::damage()
+{
+    lives--;
+    std::cout << lives << std::endl;
+    if (lives == 0)
+        destroy();
+}
+
+void Player::destroy()
+{
+    isAlive = false;
+    cannon.setFillColor(sf::Color(255,255,255,50));
 }

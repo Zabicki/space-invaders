@@ -21,6 +21,11 @@ void StatePlay::update(float timeStep)
     {
         (*it)->update(timeStep);
     }
+
+    for (std::vector<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); ++it)
+    {
+        (*it)->checkBulletCollision(&player);
+    }
 }
 
 void StatePlay::render()
@@ -28,16 +33,26 @@ void StatePlay::render()
     Window::instance().getWindow()->clear();
     Window::instance().getWindow()->draw(sprite_background);
     Window::instance().getWindow()->draw(player.getCannon());
-    for(std::vector<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); ++it)
+    for (std::vector<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); ++it)
     {
         Window::instance().getWindow()->draw(*(*it)->getSprite());
     }
 
     std::vector<Bullet*> v = player.getBullets();
-    for(std::vector<Bullet*>::iterator it = v.begin(); it != v.end(); ++it)
+    for (std::vector<Bullet*>::iterator it = v.begin(); it != v.end(); ++it)
     {
         Window::instance().getWindow()->draw(*(*it)->getSprite());
     }
+    std::vector<Bullet*> u;
+    for (std::vector<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); ++it)
+    {
+        u = (*it)->getBullets();
+        for (std::vector<Bullet*>::iterator it = u.begin(); it != u.end(); ++it)
+        {
+            Window::instance().getWindow()->draw(*(*it)->getSprite());
+        }
+    }
+
     Window::instance().getWindow()->draw(player.getPoints().getText());
     Window::instance().getWindow()->display();
 }

@@ -1,5 +1,7 @@
 #pragma once
 #include "Enemy.h"
+#include <random>
+#include "Player.h"
 
 class Enemy1 : public Enemy
 {
@@ -11,11 +13,12 @@ public:
     virtual void shoot();
     virtual void update(float);
     virtual bool checkCollision();
-    virtual void checkBulletCollision();
+    virtual void checkBulletCollision(Player*);
     virtual sf::RectangleShape* getSprite();
     virtual void checkSideCollision();
     virtual void destroy();
     virtual void moveDown();
+    virtual bool random();
+    virtual std::vector<Bullet*>& getBullets();
 private:
-
 };

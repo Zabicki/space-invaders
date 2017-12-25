@@ -30,10 +30,14 @@ public:
     void handleInput(sf::Event);
     bool sideCollision();
     void fire(); //fire a bullet
-    bool checkBulletCollision(std::vector<Enemy*>* enemies); //TODO: add std::vector<Enemies*> enemies vector to function's parameters
+    bool checkBulletCollision(std::vector<Enemy*>* enemies);
     void checkKeyboardKeys();
     Points getPoints();
+    void damage();
+    void destroy();
 private:
+    bool isAlive;
+    int lives;
     sf::RectangleShape cannon;
     bool canShoot;
     bool substract;

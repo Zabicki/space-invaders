@@ -6,6 +6,7 @@ Enemy1::Enemy1()
     rect.setFillColor(sf::Color::White);
     rect.setOrigin(rect.getSize().x / 2, rect.getSize().y / 2);
     rect.setPosition(Window::instance().getWindow()->getSize().x / 2, 300);
+    srand(time(NULL));
 }
 
 Enemy1::Enemy1(sf::Vector2f position)
@@ -34,7 +35,15 @@ void Enemy1::shoot()
 
 void Enemy1::update(float dt)
 {
-    //checkSideCollision();
+    if (random())
+        shoot();
+
+    //move bullets
+    for(std::vector<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); ++it)
+    {
+        (*it)->move(dt);
+    }
+
     move(dt);
 }
 
@@ -43,9 +52,34 @@ bool Enemy1::checkCollision()
 
 }
 
-void Enemy1::checkBulletCollision()
+void Enemy1::checkBulletCollision(Player* player)
 {
+    for(std::vector<Bullet*>::iterator it = bullets.begin(); it != bullets.end();)
+    {
+        if ((*it)->getSprite()->getGlobalBounds().intersects(player->getCannon().getGlobalBounds()))
+        {
+            //destroy bullet
+            delete *it;
+            bullets.erase(it);
 
+            player->damage();
+            break;
+        }
+        else
+            ++it;
+    }
+
+    for(std::vector<Bullet*>::iterator it = bullets.begin(); it != bullets.end();)
+    {
+        if ((*it)->getSprite()->getPosition().y > 600)
+        {
+            delete *it;
+            bullets.erase(it);
+            std::cout << "Bullets: " << bullets.size() << "\n";
+        }
+        else
+            ++it;
+    }
 }
 
 sf::RectangleShape* Enemy1::getSprite()
@@ -75,4 +109,16 @@ void Enemy1::destroy()
 void Enemy1::moveDown()
 {
     rect.move(0, 20);
+}
+
+bool Enemy1::random()
+{
+    if (rand() % set <= shotChance)
+        return true;
+    return false;
+}
+
+std::vector<Bullet*>& Enemy1::getBullets()
+{
+    return bullets;
 }
