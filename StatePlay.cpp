@@ -13,7 +13,14 @@ void StatePlay::update(float timeStep)
 {
     player.update(timeStep);
     player.checkBulletCollision(&enemies);
-    checkSideCollision();
+    if (checkSideCollision())
+    {
+        for(std::vector<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); ++it)
+        {
+            (*it)->moveDown();
+        }
+    }
+
     for(std::vector<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); ++it)
     {
         (*it)->update(timeStep);
@@ -84,6 +91,7 @@ bool StatePlay::checkSideCollision()
             {
                 Enemy::direction = left;
                 Enemy::speed = -Enemy::speed;
+                return true;
             }
         }
         else
@@ -92,7 +100,9 @@ bool StatePlay::checkSideCollision()
             {
                 Enemy::direction = right;
                 Enemy::speed = -Enemy::speed;
+                return true;
             }
         }
     }
+    return false;
 }

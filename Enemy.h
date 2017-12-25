@@ -25,6 +25,7 @@ public:
     virtual void destroy() = 0;
     static Dir direction;
     static float speed;
+    virtual void moveDown() = 0;
 protected:
     sf::RectangleShape rect; //later switched to sf::Texture
     std::vector <Bullet*> bullets;

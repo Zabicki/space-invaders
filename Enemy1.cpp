@@ -71,3 +71,8 @@ void Enemy1::destroy()
 {
     rect.setFillColor(sf::Color::Yellow);
 }
+
+void Enemy1::moveDown()
+{
+    rect.move(0, 20);
+}

@@ -15,6 +15,7 @@ public:
     virtual sf::RectangleShape* getSprite();
     virtual void checkSideCollision();
     virtual void destroy();
+    virtual void moveDown();
 private:
 
 };
