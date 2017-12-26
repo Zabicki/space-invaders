@@ -4,6 +4,7 @@
 #include "Bullet.h"
 #include "Enemy.h"
 #include "Enemy1.h"
+#include "CollisionSystem.h"
 
 class StatePlay : public State
 {
@@ -18,5 +19,8 @@ public:
     bool checkSideCollision();
 private:
     Player player;
+    CollisionSystem cs;
+    std::vector<Bullet*> playerBullets;
+    std::vector<Bullet*> enemyBullets;
     std::vector <Enemy*> enemies;
 };

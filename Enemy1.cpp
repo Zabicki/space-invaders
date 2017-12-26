@@ -28,77 +28,21 @@ void Enemy1::move(float dt)
     rect.move(speed * dt, 0);
 }
 
-void Enemy1::shoot()
+bool Enemy1::shoot()
 {
-    bullets.push_back(new Bullet({rect.getPosition().x, rect.getPosition().y + 20}, 200));
+    if (random())
+        return true;
+    return false;
 }
 
 void Enemy1::update(float dt)
 {
-    if (random())
-        shoot();
-
-    //move bullets
-    for(std::vector<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); ++it)
-    {
-        (*it)->move(dt);
-    }
-
     move(dt);
-}
-
-bool Enemy1::checkCollision()
-{
-
-}
-
-void Enemy1::checkBulletCollision(Player* player)
-{
-    for(std::vector<Bullet*>::iterator it = bullets.begin(); it != bullets.end();)
-    {
-        if ((*it)->getSprite()->getGlobalBounds().intersects(player->getCannon().getGlobalBounds()))
-        {
-            //destroy bullet
-            delete *it;
-            bullets.erase(it);
-
-            player->damage();
-            break;
-        }
-        else
-            ++it;
-    }
-
-    for(std::vector<Bullet*>::iterator it = bullets.begin(); it != bullets.end();)
-    {
-        if ((*it)->getSprite()->getPosition().y > 600)
-        {
-            delete *it;
-            bullets.erase(it);
-            std::cout << "Bullets: " << bullets.size() << "\n";
-        }
-        else
-            ++it;
-    }
 }
 
 sf::RectangleShape* Enemy1::getSprite()
 {
     return &rect;
-}
-
-void Enemy1::checkSideCollision()
-{
-    if (rect.getPosition().x <= 15 && direction == left)
-    {
-        speed = -speed;
-        direction = right;
-    }
-    else if (rect.getPosition().x >= Window::instance().getWindow()->getSize().x - 15 && direction == right)
-    {
-        speed = -speed;
-        direction = left;
-    }
 }
 
 void Enemy1::destroy()
@@ -116,9 +60,4 @@ bool Enemy1::random()
     if (rand() % set <= shotChance)
         return true;
     return false;
-}
-
-std::vector<Bullet*>& Enemy1::getBullets()
-{
-    return bullets;
 }

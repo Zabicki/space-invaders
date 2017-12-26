@@ -24,28 +24,26 @@ class Player
 public:
     Player();
     ~Player();
-    sf::RectangleShape getCannon();
-    std::vector<Bullet*>& getBullets();
-    void update(float);
+    sf::RectangleShape getSprite();
+    void update(float dt);
     void handleInput(sf::Event);
-    bool sideCollision();
-    void fire(); //fire a bullet
-    bool checkBulletCollision(std::vector<Enemy*>* enemies);
+    bool shoot();
     void checkKeyboardKeys();
-    Points getPoints();
+    Points* getPoints();
     void damage();
     void destroy();
+    bool isAlive();
+    void move(float dt);
+    Direction direction;
 private:
-    bool isAlive;
+    bool alive;
     int lives;
-    sf::RectangleShape cannon;
+    sf::RectangleShape rect;
     bool canShoot;
     bool substract;
     float reloadTime;
     float timer; //timer to control shooting speed
     const float movingSpeed; //constant, helps the 'speed' variable to set it's proper value
     float speed; //changed whether the direction changes
-    Direction direction;
-    std::vector <Bullet*> bullets;
     Points points;
 };

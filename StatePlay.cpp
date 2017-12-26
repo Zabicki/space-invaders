@@ -7,9 +7,49 @@ StatePlay::StatePlay()
 
 void StatePlay::update(float timeStep)
 {
+    if (!player.isAlive())
+    {
+        Window::instance().getWindow()->close();
+        return;
+        //change insights of the if to question if the player wants to play again
+        //while the question shows up, the game ought to be frozen
+        //until the user decides if they want to play or quit to the menu
+    }
+
+    if (!cs.checkPlayerSideCollision(&player))
+        player.move(timeStep);
+
+    for(std::vector<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); ++it)
+    {
+        if ((*it)->shoot())
+            enemyBullets.push_back(new Bullet({(*it)->getSprite()->getPosition().x, (*it)->getSprite()->getPosition().y - (*it)->getSprite()->getSize().y / 2}, 200.f));
+    }
+
+    if (player.shoot())
+        playerBullets.push_back(new Bullet({player.getSprite().getPosition().x, player.getSprite().getPosition().y - player.getSprite().getSize().y / 2}, -600.f));
+
+    //move bullets
+    for (std::vector<Bullet*>::iterator it = enemyBullets.begin(); it != enemyBullets.end(); ++it)
+    {
+        (*it)->move(timeStep);
+    }
+
+    for (std::vector<Bullet*>::iterator it = playerBullets.begin(); it != playerBullets.end(); ++it)
+    {
+        (*it)->move(timeStep);
+    }
+
+    //update player
     player.update(timeStep);
-    player.checkBulletCollision(&enemies);
-    if (checkSideCollision())
+
+    //checks if enemies get hit with player's bullets
+    cs.checkEnemiesHit(&enemies, &playerBullets, &player);
+
+    //check collision between enemy's and player's bullets
+    cs.checkBulletsCollision(&enemyBullets, &playerBullets);
+
+    //checks if enemy collides with a wall
+    if (cs.checkEnemySideCollision(&enemies))
     {
         for(std::vector<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); ++it)
         {
@@ -17,50 +57,43 @@ void StatePlay::update(float timeStep)
         }
     }
 
+    //update enemies
     for(std::vector<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); ++it)
     {
         (*it)->update(timeStep);
     }
 
-    for (std::vector<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); ++it)
-    {
-        (*it)->checkBulletCollision(&player);
-    }
+    //check if player is hit with enemy's bullets
+    cs.checkPlayerHit(&player, &enemyBullets);
 }
 
 void StatePlay::render()
 {
     Window::instance().getWindow()->clear();
     Window::instance().getWindow()->draw(sprite_background);
-    Window::instance().getWindow()->draw(player.getCannon());
+    Window::instance().getWindow()->draw(player.getSprite());
     for (std::vector<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); ++it)
     {
         Window::instance().getWindow()->draw(*(*it)->getSprite());
     }
 
-    std::vector<Bullet*> v = player.getBullets();
-    for (std::vector<Bullet*>::iterator it = v.begin(); it != v.end(); ++it)
+    for (std::vector<Bullet*>::iterator it = playerBullets.begin(); it != playerBullets.end(); ++it)
     {
         Window::instance().getWindow()->draw(*(*it)->getSprite());
     }
-    std::vector<Bullet*> u;
-    for (std::vector<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); ++it)
+
+    for (std::vector<Bullet*>::iterator it = enemyBullets.begin(); it != enemyBullets.end(); ++it)
     {
-        u = (*it)->getBullets();
-        for (std::vector<Bullet*>::iterator it = u.begin(); it != u.end(); ++it)
-        {
-            Window::instance().getWindow()->draw(*(*it)->getSprite());
-        }
+        Window::instance().getWindow()->draw(*(*it)->getSprite());
     }
 
-    Window::instance().getWindow()->draw(player.getPoints().getText());
+    Window::instance().getWindow()->draw(player.getPoints()->getText());
     Window::instance().getWindow()->display();
 }
 
 void StatePlay::pollEvent()
 {
     sf::Event event;
-    player.checkKeyboardKeys();
     while (Window::instance().getWindow()->pollEvent(event))
     {
         if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))

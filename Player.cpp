@@ -10,10 +10,10 @@ TODO
 Player::Player()
 :movingSpeed(400)
 {
-    cannon.setFillColor(sf::Color::Green);
-    cannon.setSize({10,30});
-    cannon.setOrigin(cannon.getSize().x / 2, cannon.getSize().y /2);
-    cannon.setPosition(Window::instance().getWindow()->getSize().x / 2, Window::instance().getWindow()->getSize().y - 35);
+    rect.setFillColor(sf::Color::Green);
+    rect.setSize({10,30});
+    rect.setOrigin(rect.getSize().x / 2, rect.getSize().y /2);
+    rect.setPosition(Window::instance().getWindow()->getSize().x / 2, Window::instance().getWindow()->getSize().y - 35);
     speed = 0;
     direction = NONE;
     canShoot = true;
@@ -21,7 +21,7 @@ Player::Player()
     reloadTime = 0.2f;
     timer = reloadTime;
     lives = 3;
-    isAlive = true;
+    alive = true;
 }
 
 Player::~Player()
@@ -29,24 +29,13 @@ Player::~Player()
 
 }
 
-sf::RectangleShape Player::getCannon()
+sf::RectangleShape Player::getSprite()
 {
-    return cannon;
+    return rect;
 }
 
 void Player::update(float dt) //dt == deltaTime
 {
-    //moving player
-    if (!sideCollision() && direction != NONE)
-        cannon.move(speed * dt, 0);
-
-    //moving player's bullets
-
-    for(std::vector<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); ++it)
-    {
-        (*it)->move(dt);
-    }
-
     if (substract)
         timer -= dt;
 
@@ -77,87 +66,21 @@ void Player::handleInput(sf::Event event)
     }
 }
 
-//returns true if player crosses screen's boundaries
-bool Player::sideCollision()
-{
-    if ((cannon.getPosition().x < (0 + cannon.getSize().x) && direction == LEFT) ||
-        (cannon.getPosition().x > (Window::instance().getWindow()->getSize().x - cannon.getSize().x) && direction == RIGHT))
-            return true;
-    return false;
-}
-
-void Player::fire()
-{bullets.push_back(new Bullet({cannon.getPosition().x, cannon.getPosition().y - cannon.getSize().y / 2}, -600.f));
-    std::cout << "Bullets: " << bullets.size() << "\n";
-    substract = true;
-    canShoot = false;
-}
-std::vector<Bullet*>& Player::getBullets()
-{
-    return bullets;
-}
-
-//additional function, using it outside the event loop in StatePlay reduces annoying delay caused by event to 0.
-void Player::checkKeyboardKeys()
+bool Player::shoot()
 {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && canShoot)
     {
-        fire();
+        std::cout << "Shooting\n";
         canShoot = false;
+        substract = true;
+        return true;
     }
+    return false;
 }
 
-bool Player::checkBulletCollision(std::vector<Enemy*>* enemies)
+Points* Player::getPoints()
 {
-    bool flag;
-    for(std::vector<Bullet*>::iterator it = bullets.begin(); it != bullets.end();)
-    {
-        flag = false;
-        for(std::vector<Enemy*>::iterator i = (*enemies).begin(); i != (*enemies).end();)
-        {
-            if ((*it)->getSprite()->getGlobalBounds().intersects((*i)->getSprite()->getGlobalBounds()))
-            {
-                //destroy bullet
-                delete *it;
-                bullets.erase(it);
-                //destroy enemy
-                (*i)->destroy();
-                delete *i;
-                enemies->erase(i);
-
-                //add points
-                points.add();
-
-                //increase a chance for enemies to shoot
-                Enemy::shotChance += 10;
-
-                //flag set to avoid std::vector<>::iterator issues
-                flag = true;
-                break;
-            }
-            else
-                ++i;
-        }
-        if (!flag)
-            ++it;
-    }
-
-    for(std::vector<Bullet*>::iterator it = bullets.begin(); it != bullets.end();)
-    {
-        if ((*it)->getSprite()->getPosition().y < 0)
-        {
-            delete *it;
-            bullets.erase(it);
-            std::cout << "Bullets: " << bullets.size() << "\n";
-        }
-        else
-            ++it;
-    }
-}
-
-Points Player::getPoints()
-{
-    return points;
+    return &points;
 }
 
 void Player::damage()
@@ -170,6 +93,18 @@ void Player::damage()
 
 void Player::destroy()
 {
-    isAlive = false;
-    cannon.setFillColor(sf::Color(255,255,255,50));
+    alive = false;
+    rect.setFillColor(sf::Color(255,255,255,50));
+    //add explosion animation and sound
+}
+
+bool Player::isAlive()
+{
+    return alive;
+}
+
+void Player::move(float dt)
+{
+    if (direction != NONE)
+        rect.move(speed * dt, 0);
 }
