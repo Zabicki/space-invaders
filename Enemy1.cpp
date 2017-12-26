@@ -2,20 +2,17 @@
 
 Enemy1::Enemy1()
 {
-    rect.setSize({30.f, 30.f});
-    rect.setFillColor(sf::Color::White);
-    rect.setOrigin(rect.getSize().x / 2, rect.getSize().y / 2);
-    rect.setPosition(Window::instance().getWindow()->getSize().x / 2, 300);
+    sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
     srand(time(NULL));
 }
 
 Enemy1::Enemy1(sf::Vector2f position)
 {
-    rect.setSize({30.f, 30.f});
-    rect.setFillColor(sf::Color::White);
-    rect.setFillColor(sf::Color(255,255,255,50));
-    rect.setOrigin(rect.getSize().x / 2, rect.getSize().y / 2);
-    rect.setPosition(position);
+    //rect.setFillColor(sf::Color(255,255,255,50));
+    sprite.setScale({3,3});
+    sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
+    sprite.setPosition(position);
+
 }
 
 Enemy1::~Enemy1()
@@ -23,41 +20,7 @@ Enemy1::~Enemy1()
 
 }
 
-void Enemy1::move(float dt)
-{
-    rect.move(speed * dt, 0);
-}
-
-bool Enemy1::shoot()
-{
-    if (random())
-        return true;
-    return false;
-}
-
 void Enemy1::update(float dt)
 {
     move(dt);
-}
-
-sf::RectangleShape* Enemy1::getSprite()
-{
-    return &rect;
-}
-
-void Enemy1::destroy()
-{
-    rect.setFillColor(sf::Color::Yellow);
-}
-
-void Enemy1::moveDown()
-{
-    rect.move(0, 20);
-}
-
-bool Enemy1::random()
-{
-    if (rand() % set <= shotChance)
-        return true;
-    return false;
 }

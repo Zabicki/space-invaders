@@ -17,18 +17,19 @@ class Enemy
 public:
     Enemy();
     virtual ~Enemy();
-    virtual void move(float) = 0;
-    virtual bool shoot() = 0;
-    virtual void update(float) = 0;
-    virtual sf::RectangleShape* getSprite() = 0;
-    virtual void destroy() = 0;
+    virtual void move(float dt);
+    virtual bool shoot();
+    virtual void update(float dt) = 0;
+    virtual sf::Sprite* getSprite();
+    virtual void destroy();
     static Dir direction;
     static float speed;
     static unsigned int shotChance;
     static unsigned int set; //numbers from 0 to set, random number will be drawn and compared to shotChance
-    virtual void moveDown() = 0;
-    virtual bool random() = 0;
+    virtual void moveDown();
+    virtual bool random();
 protected:
-    sf::RectangleShape rect; //later switched to sf::Texture
+    sf::Sprite sprite; //later switched to sf::Texture
+    sf::Texture texture;
     float fireRate;
 };

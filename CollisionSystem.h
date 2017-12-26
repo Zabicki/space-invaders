@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Window.h"
+#include "Ufo.h"
 
 class CollisionSystem
 {
@@ -15,5 +16,7 @@ public:
     bool checkBulletsInBounds(std::vector<Bullet*>* playerBullets,std::vector<Bullet*>* enemyBullets);
     bool checkPlayerSideCollision(Player* player);
     bool checkEnemySideCollision(std::vector<Enemy*>* enemies);
+    bool checkUfoCollision(Ufo* ufo, std::vector<Bullet*>* playerBullets);
+    bool checkUfoSideCollision(Ufo* ufo);
 private:
 };

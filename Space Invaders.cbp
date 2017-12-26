@@ -55,6 +55,8 @@
 		<Unit filename="StateManager.h" />
 		<Unit filename="StatePlay.cpp" />
 		<Unit filename="StatePlay.h" />
+		<Unit filename="Ufo.cpp" />
+		<Unit filename="Ufo.h" />
 		<Unit filename="Window.cpp" />
 		<Unit filename="Window.h" />
 		<Unit filename="main.cpp" />

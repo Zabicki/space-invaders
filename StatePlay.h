@@ -5,6 +5,7 @@
 #include "Enemy.h"
 #include "Enemy1.h"
 #include "CollisionSystem.h"
+#include "Ufo.h"
 
 class StatePlay : public State
 {
@@ -23,4 +24,5 @@ private:
     std::vector<Bullet*> playerBullets;
     std::vector<Bullet*> enemyBullets;
     std::vector <Enemy*> enemies;
+    Ufo* ufo;
 };

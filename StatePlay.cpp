@@ -3,6 +3,7 @@
 StatePlay::StatePlay()
 {
     spawnEnemies(55);
+    ufo = new Ufo();
 }
 
 void StatePlay::update(float timeStep)
@@ -16,13 +17,35 @@ void StatePlay::update(float timeStep)
         //until the user decides if they want to play or quit to the menu
     }
 
+    if (ufo != NULL)
+    {
+        if (!cs.checkUfoSideCollision(ufo))
+        {
+            ufo->move(timeStep);
+        }
+        else
+        {
+            delete ufo;
+            ufo = NULL;
+        }
+        if (ufo != NULL)
+        {
+            if (cs.checkUfoCollision(ufo, &playerBullets))
+            {
+                ufo = NULL;
+                player.getPoints()->add(500);
+            }
+        }
+
+    }
+
     if (!cs.checkPlayerSideCollision(&player))
         player.move(timeStep);
 
     for(std::vector<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); ++it)
     {
         if ((*it)->shoot())
-            enemyBullets.push_back(new Bullet({(*it)->getSprite()->getPosition().x, (*it)->getSprite()->getPosition().y - (*it)->getSprite()->getSize().y / 2}, 200.f));
+            enemyBullets.push_back(new Bullet({(*it)->getSprite()->getPosition().x, (*it)->getSprite()->getPosition().y - (*it)->getSprite()->getGlobalBounds().height / 2}, 200.f));
     }
 
     if (player.shoot())
@@ -72,6 +95,12 @@ void StatePlay::render()
     Window::instance().getWindow()->clear();
     Window::instance().getWindow()->draw(sprite_background);
     Window::instance().getWindow()->draw(player.getSprite());
+
+    if (ufo != NULL)
+    {
+        Window::instance().getWindow()->draw(*ufo->getSprite());
+    }
+
     for (std::vector<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); ++it)
     {
         Window::instance().getWindow()->draw(*(*it)->getSprite());

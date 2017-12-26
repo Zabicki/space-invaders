@@ -155,3 +155,29 @@ bool CollisionSystem::checkEnemySideCollision(std::vector<Enemy*>* enemies)
     }
     return false;
 }
+
+bool CollisionSystem::checkUfoCollision(Ufo* ufo, std::vector<Bullet*>* playerBullets)
+{
+    for(std::vector<Bullet*>::iterator it = playerBullets->begin(); it != playerBullets->end();)
+    {
+        if ((*it)->getSprite()->getGlobalBounds().intersects(ufo->getSprite()->getGlobalBounds()))
+        {
+            //destroy bullet
+            delete *it;
+            playerBullets->erase(it);
+
+            delete ufo;
+            ufo = NULL;
+            break;
+        }
+        else
+            ++it;
+    }
+}
+
+bool CollisionSystem::checkUfoSideCollision(Ufo* ufo)
+{
+    if (ufo->getSprite()->getGlobalBounds().width > (Window::instance().getWindow()->getSize().x + ufo->getSprite()->getGlobalBounds().width))
+            return true;
+    return false;
+}
