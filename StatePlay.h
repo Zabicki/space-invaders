@@ -17,7 +17,6 @@ public:
     virtual void handleInput();
     void pollEvent();
     void spawnEnemies(int amount);
-    bool checkSideCollision();
 private:
     Player player;
     CollisionSystem cs;
@@ -25,4 +24,7 @@ private:
     std::vector<Bullet*> enemyBullets;
     std::vector <Enemy*> enemies;
     Ufo* ufo;
+    float movingCooldown;
+    bool substract;
+    int i;
 };

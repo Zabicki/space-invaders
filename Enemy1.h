@@ -7,7 +7,7 @@ class Enemy1 : public Enemy
 {
 public:
     Enemy1();
-    Enemy1(sf::Vector2f);
+    Enemy1(sf::Vector2f, int);
     ~Enemy1();
     virtual void update(float);
 private:

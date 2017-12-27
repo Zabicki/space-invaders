@@ -32,4 +32,8 @@ protected:
     sf::Sprite sprite; //later switched to sf::Texture
     sf::Texture texture;
     float fireRate;
+    unsigned int ID;
+    float animationTimer;
+    bool img1;
+    bool img2;
 };

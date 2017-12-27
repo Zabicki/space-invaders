@@ -14,7 +14,7 @@ bool CollisionSystem::checkPlayerHit(Player* player,std::vector<Bullet*>* enemyB
 {
     for(std::vector<Bullet*>::iterator it = enemyBullets->begin(); it != enemyBullets->end();)
     {
-        if ((*it)->getSprite()->getGlobalBounds().intersects(player->getSprite().getGlobalBounds()))
+        if ((*it)->getSprite()->getGlobalBounds().intersects(player->getSprite()->getGlobalBounds()))
         {
             //destroy bullet
             delete *it;
@@ -124,8 +124,8 @@ bool CollisionSystem::checkBulletsInBounds(std::vector<Bullet*>* playerBullets,s
 
 bool CollisionSystem::checkPlayerSideCollision(Player* player)
 {
-    if ((player->getSprite().getPosition().x < (0 + player->getSprite().getSize().x) && player->direction == LEFT) ||
-        (player->getSprite().getPosition().x > (Window::instance().getWindow()->getSize().x - player->getSprite().getSize().x) && player->direction == RIGHT))
+    if ((player->getSprite()->getPosition().x < (0 + player->getSprite()->getGlobalBounds().width) && player->direction == LEFT) ||
+        (player->getSprite()->getPosition().x > (Window::instance().getWindow()->getSize().x - player->getSprite()->getGlobalBounds().width) && player->direction == RIGHT))
             return true;
     return false;
 }
@@ -136,7 +136,7 @@ bool CollisionSystem::checkEnemySideCollision(std::vector<Enemy*>* enemies)
     {
         if (Enemy::direction == right)
         {
-            if ((*it)->getSprite()->getPosition().x + 15 >= Window::instance().getWindow()->getSize().x)
+            if ((*it)->getSprite()->getPosition().x + (*it)->getSprite()->getGlobalBounds().width / 2 >= Window::instance().getWindow()->getSize().x)
             {
                 Enemy::direction = left;
                 Enemy::speed = -Enemy::speed;
@@ -145,7 +145,7 @@ bool CollisionSystem::checkEnemySideCollision(std::vector<Enemy*>* enemies)
         }
         else
         {
-            if ((*it)->getSprite()->getPosition().x - 15 <= 0)
+            if ((*it)->getSprite()->getPosition().x - (*it)->getSprite()->getGlobalBounds().width / 2 <= 0)
             {
                 Enemy::direction = right;
                 Enemy::speed = -Enemy::speed;

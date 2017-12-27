@@ -24,7 +24,7 @@ class Player
 public:
     Player();
     ~Player();
-    sf::RectangleShape getSprite();
+    sf::Sprite* getSprite();
     void update(float dt);
     void handleInput(sf::Event);
     bool shoot();
@@ -38,7 +38,8 @@ public:
 private:
     bool alive;
     int lives;
-    sf::RectangleShape rect;
+    sf::Texture texture;
+    sf::Sprite sprite;
     bool canShoot;
     bool substract;
     float reloadTime;

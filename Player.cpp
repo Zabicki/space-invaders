@@ -3,17 +3,18 @@
 /*
 TODO
 [] smth wrong with the collision system, check this
-[]Program crashed in some bullet situations, has to be fixed asap (return code 134(0x86)
+[X]Program crashed in some bullet situations, has to be fixed asap (return code 134(0x86)
   When the last fired bulet is colliding with enemy, program crashes
 */
 
 Player::Player()
 :movingSpeed(400)
 {
-    rect.setFillColor(sf::Color::Green);
-    rect.setSize({10,30});
-    rect.setOrigin(rect.getSize().x / 2, rect.getSize().y /2);
-    rect.setPosition(Window::instance().getWindow()->getSize().x / 2, Window::instance().getWindow()->getSize().y - 35);
+    texture.loadFromFile("resources/player.png");
+    sprite.setTexture(texture);
+    sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height /2);
+    sprite.setPosition(Window::instance().getWindow()->getSize().x / 2, Window::instance().getWindow()->getSize().y - 35);
+    sprite.setScale({3.f, 3.f});
     speed = 0;
     direction = NONE;
     canShoot = true;
@@ -22,6 +23,7 @@ Player::Player()
     timer = reloadTime;
     lives = 3;
     alive = true;
+
 }
 
 Player::~Player()
@@ -29,9 +31,9 @@ Player::~Player()
 
 }
 
-sf::RectangleShape Player::getSprite()
+sf::Sprite* Player::getSprite()
 {
-    return rect;
+    return &sprite;
 }
 
 void Player::update(float dt) //dt == deltaTime
@@ -94,7 +96,6 @@ void Player::damage()
 void Player::destroy()
 {
     alive = false;
-    rect.setFillColor(sf::Color(255,255,255,50));
     //add explosion animation and sound
 }
 
@@ -106,5 +107,5 @@ bool Player::isAlive()
 void Player::move(float dt)
 {
     if (direction != NONE)
-        rect.move(speed * dt, 0);
+        sprite.move(speed * dt, 0);
 }

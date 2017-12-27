@@ -4,10 +4,16 @@ StatePlay::StatePlay()
 {
     spawnEnemies(55);
     ufo = new Ufo();
+    movingCooldown = 0.1f;
+    substract = false;
+    i = 1;
 }
 
 void StatePlay::update(float timeStep)
 {
+    if (substract)
+        movingCooldown -= timeStep;
+
     if (!player.isAlive())
     {
         Window::instance().getWindow()->close();
@@ -49,7 +55,7 @@ void StatePlay::update(float timeStep)
     }
 
     if (player.shoot())
-        playerBullets.push_back(new Bullet({player.getSprite().getPosition().x, player.getSprite().getPosition().y - player.getSprite().getSize().y / 2}, -600.f));
+        playerBullets.push_back(new Bullet({player.getSprite()->getPosition().x, player.getSprite()->getPosition().y - player.getSprite()->getGlobalBounds().height / 2}, -600.f));
 
     //move bullets
     for (std::vector<Bullet*>::iterator it = enemyBullets.begin(); it != enemyBullets.end(); ++it)
@@ -83,7 +89,10 @@ void StatePlay::update(float timeStep)
     //update enemies
     for(std::vector<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); ++it)
     {
+        if (i % 11 == 0)
+            substract = true;
         (*it)->update(timeStep);
+        ++i;
     }
 
     //check if player is hit with enemy's bullets
@@ -94,7 +103,7 @@ void StatePlay::render()
 {
     Window::instance().getWindow()->clear();
     Window::instance().getWindow()->draw(sprite_background);
-    Window::instance().getWindow()->draw(player.getSprite());
+    Window::instance().getWindow()->draw(*player.getSprite());
 
     if (ufo != NULL)
     {
@@ -141,7 +150,7 @@ void StatePlay::spawnEnemies(int amount)
     sf::Vector2f enemyPosition = {200, 115};
     for (int i = 1; i <= amount; ++i)
     {
-        enemies.push_back(new Enemy1(enemyPosition));
+        enemies.push_back(new Enemy1(enemyPosition, i));
         if (i % 11 == 0)
         {
             enemyPosition.x = 200;
@@ -152,30 +161,4 @@ void StatePlay::spawnEnemies(int amount)
             enemyPosition.x += 40;
         }
     }
-}
-
-bool StatePlay::checkSideCollision()
-{
-    for (std::vector<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); ++it)
-    {
-        if (Enemy::direction == right)
-        {
-            if ((*it)->getSprite()->getPosition().x + 15 >= Window::instance().getWindow()->getSize().x)
-            {
-                Enemy::direction = left;
-                Enemy::speed = -Enemy::speed;
-                return true;
-            }
-        }
-        else
-        {
-            if ((*it)->getSprite()->getPosition().x - 15 <= 0)
-            {
-                Enemy::direction = right;
-                Enemy::speed = -Enemy::speed;
-                return true;
-            }
-        }
-    }
-    return false;
 }
