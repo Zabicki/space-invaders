@@ -2,8 +2,6 @@
 
 Enemy::Enemy()
 {
-    texture.loadFromFile("resources/enemy1_1.png");
-    sprite.setTexture(texture);
     animationTimer = 1.f;
     img1 = true;
     img2 = false;

@@ -148,9 +148,21 @@ void StatePlay::handleInput()
 void StatePlay::spawnEnemies(int amount)
 {
     sf::Vector2f enemyPosition = {200, 115};
-    for (int i = 1; i <= amount; ++i)
+    int tex = 0;
+    std::string textures[10] = {"resources/enemy1_1.png",
+                                "resources/enemy1_2.png",
+                                "resources/enemy2_1.png",
+                                "resources/enemy2_2.png",
+                                "resources/enemy3_1.png",
+                                "resources/enemy3_2.png",
+                                "resources/enemy1_1.png",
+                                "resources/enemy1_2.png",
+                                "resources/enemy2_1.png",
+                                "resources/enemy2_2.png"};
+    for (int i = 0; i < amount; ++i)
     {
-        enemies.push_back(new Enemy1(enemyPosition, i));
+        if (i % 11 == 0 && i != 0)
+            tex += 2;
         if (i % 11 == 0)
         {
             enemyPosition.x = 200;
@@ -160,5 +172,6 @@ void StatePlay::spawnEnemies(int amount)
         {
             enemyPosition.x += 40;
         }
+        enemies.push_back(new Enemy1(enemyPosition, i, textures[tex], textures[tex+1]));
     }
 }

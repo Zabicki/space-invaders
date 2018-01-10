@@ -3,7 +3,8 @@
 Ufo::Ufo()
 {
     //rect.setFillColor(sf::Color(255,255,255,200));
-    sprite.setColor(sf::Color::Red);
+    texture.loadFromFile("resources/ufo1.png");
+    sprite.setTexture(texture);
     sprite.setScale({3,3});
     sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
     sprite.setPosition(30,30);
