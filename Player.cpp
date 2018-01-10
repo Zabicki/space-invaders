@@ -5,6 +5,7 @@ TODO
 [] smth wrong with the collision system, check this
 [X]Program crashed in some bullet situations, has to be fixed asap (return code 134(0x86)
   When the last fired bulet is colliding with enemy, program crashes
+[]Fix the transparency
 */
 
 Player::Player()
@@ -13,17 +14,29 @@ Player::Player()
     texture.loadFromFile("resources/player.png");
     sprite.setTexture(texture);
     sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height /2);
-    sprite.setPosition(Window::instance().getWindow()->getSize().x / 2, Window::instance().getWindow()->getSize().y - 35);
+    sprite.setPosition(Window::instance().getWindow()->getSize().x / 2, Window::instance().getWindow()->getSize().y - 60);
     sprite.setScale({3.f, 3.f});
+    sprite.setColor(sf::Color::Green);
+    lives_sprite = sprite;
+    lives_sprite.setPosition(Window::instance().getWindow()->getSize().x - 60,Window::instance().getWindow()->getSize().y - 23);
+    lives_sprite.setColor(sf::Color(255,255,255,50));
+    lives_sprite.setColor(sf::Color::Green);
     speed = 0;
     direction = NONE;
     canShoot = true;
     substract = false;
-    reloadTime = 0.2f;
+    reloadTime = 0.5f;
     timer = reloadTime;
     lives = 3;
     alive = true;
 
+    lives_font.loadFromFile("resources/space_font.ttf");
+    lives_text.setFont(lives_font);
+    lives_text.setCharacterSize(30);
+    lives_text.setFillColor(sf::Color::White);
+    lives_text.setFillColor(sf::Color(255,255,255,150));
+    lives_text.setPosition(Window::instance().getWindow()->getSize().x - 30, Window::instance().getWindow()->getSize().y - 40);
+    lives_text.setString(std::to_string(lives));
 }
 
 Player::~Player()
@@ -89,6 +102,7 @@ void Player::damage()
 {
     lives--;
     std::cout << lives << std::endl;
+    lives_text.setString(std::to_string(lives));
     if (lives == 0)
         destroy();
 }
@@ -108,4 +122,14 @@ void Player::move(float dt)
 {
     if (direction != NONE)
         sprite.move(speed * dt, 0);
+}
+
+sf::Text Player::getLivesText()
+{
+    return lives_text;
+}
+
+sf::Sprite* Player::getLivesSprite()
+{
+    return &lives_sprite;
 }

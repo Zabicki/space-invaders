@@ -6,7 +6,7 @@ Enemy1::Enemy1()
     srand(time(NULL));
 }
 
-Enemy1::Enemy1(sf::Vector2f position, int id, std::string str1, std::string str2)
+Enemy1::Enemy1(sf::Vector2f position, int id, std::string str1, std::string str2, sf::Color color)
 {
     this->str1 = str1;
     this->str2 = str2;
@@ -15,6 +15,7 @@ Enemy1::Enemy1(sf::Vector2f position, int id, std::string str1, std::string str2
     sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
     sprite.setPosition(position);
     sprite.setScale({3,3});
+    sprite.setColor(color);
     ID = id;
 }
 

@@ -8,6 +8,7 @@ Ufo::Ufo()
     sprite.setScale({3,3});
     sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
     sprite.setPosition(30,30);
+    sprite.setColor(sf::Color::Magenta);
 }
 
 Ufo::~Ufo()

@@ -6,7 +6,7 @@ Points::Points()
     text.setFont(font);
     text.setCharacterSize(30);
     text.setFillColor(sf::Color::White);
-    text.setFillColor(sf::Color(255,255,255,100));
+    text.setFillColor(sf::Color(255,255,255,155));
     text.setPosition(10,560);
     score = 0;
     setString();

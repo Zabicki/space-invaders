@@ -126,6 +126,8 @@ void StatePlay::render()
     }
 
     Window::instance().getWindow()->draw(player.getPoints()->getText());
+    Window::instance().getWindow()->draw(*player.getLivesSprite());
+    Window::instance().getWindow()->draw(player.getLivesText());
     Window::instance().getWindow()->display();
 }
 
@@ -149,6 +151,12 @@ void StatePlay::spawnEnemies(int amount)
 {
     sf::Vector2f enemyPosition = {200, 115};
     int tex = 0;
+    int col = 0;
+    sf::Color colors[5] = { sf::Color::Red,
+                            sf::Color::Green,
+                            sf::Color::Blue,
+                            sf::Color::Yellow,
+                            sf::Color::Cyan};
     std::string textures[10] = {"resources/enemy1_1.png",
                                 "resources/enemy1_2.png",
                                 "resources/enemy2_1.png",
@@ -162,7 +170,10 @@ void StatePlay::spawnEnemies(int amount)
     for (int i = 0; i < amount; ++i)
     {
         if (i % 11 == 0 && i != 0)
+        {
             tex += 2;
+            col++;
+        }
         if (i % 11 == 0)
         {
             enemyPosition.x = 200;
@@ -172,6 +183,6 @@ void StatePlay::spawnEnemies(int amount)
         {
             enemyPosition.x += 40;
         }
-        enemies.push_back(new Enemy1(enemyPosition, i, textures[tex], textures[tex+1]));
+        enemies.push_back(new Enemy1(enemyPosition, i, textures[tex], textures[tex+1], colors[col]));
     }
 }

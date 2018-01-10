@@ -34,12 +34,15 @@ public:
     void destroy();
     bool isAlive();
     void move(float dt);
+    sf::Text getLivesText();
+    sf::Sprite* getLivesSprite();
     Direction direction;
 private:
     bool alive;
     int lives;
     sf::Texture texture;
     sf::Sprite sprite;
+    sf::Sprite lives_sprite;
     bool canShoot;
     bool substract;
     float reloadTime;
@@ -47,4 +50,7 @@ private:
     const float movingSpeed; //constant, helps the 'speed' variable to set it's proper value
     float speed; //changed whether the direction changes
     Points points;
+    //lives drawing
+    sf::Text lives_text;
+    sf::Font lives_font;
 };
