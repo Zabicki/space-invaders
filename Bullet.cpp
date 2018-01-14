@@ -5,13 +5,18 @@ Bullet::Bullet()
 
 }
 
-Bullet::Bullet(sf::Vector2f position, float speed)
+Bullet::Bullet(sf::Vector2f position, float speed, sf::Color color)
 {
-    bullet.setFillColor(sf::Color::Yellow);
-    bullet.setSize({5.f, 5.f});
-    bullet.setOrigin(bullet.getSize().x / 2, bullet.getSize().y /2);
+    str1 = "resources/bullet1.png";
+    str2 = "resources/bullet2.png";
+    texture.loadFromFile(str1);
+    sprite.setTexture(texture);
+    sprite.setOrigin(texture.getSize().x / 2, texture.getSize().y / 2);
+    sprite.setPosition(position);
+    sprite.setColor(color);
+    time = 0.3f;
     this->speed = speed;
-    bullet.setPosition(position);
+    t1 = true;
 }
 
 Bullet::~Bullet()
@@ -21,7 +26,23 @@ Bullet::~Bullet()
 
 void Bullet::move(float dt) //deltaTime
 {
-    bullet.move(0, speed * dt);
+    time -= dt;
+    if (time <= 0)
+    {
+        if (t1)
+        {
+            texture.loadFromFile(str2);
+            t1 = false;
+        }
+        else
+        {
+            texture.loadFromFile(str1);
+            t1 = true;
+        }
+        sprite.setTexture(texture);
+        time = 0.3f;
+    }
+    sprite.move(0, speed * dt);
 }
 
 void Bullet::setSpeed(float v)
@@ -29,14 +50,7 @@ void Bullet::setSpeed(float v)
     speed = v;
 }
 
-sf::RectangleShape* Bullet::getSprite()
+sf::Sprite* Bullet::getSprite()
 {
-    return &bullet;
-}
-
-void Bullet::showInfo()
-{
-    std::cout << "\nPosition: " << bullet.getPosition().x << " " << bullet.getPosition().y <<
-                 "\nSize: " << bullet.getSize().x << " " << bullet.getSize().y <<
-                 "\nSpeed: " << speed << "\n";
+    return &sprite;
 }

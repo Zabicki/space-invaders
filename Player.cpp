@@ -131,3 +131,5 @@ sf::Sprite* Player::getLivesSprite()
 {
     return &lives_sprite;
 }
+
+sf::Color Player::getColor() { return sprite.getColor(); }

@@ -11,6 +11,7 @@ public:
             sf::Color color = sf::Color::White);
     ~Enemy1();
     virtual void update(float);
+    sf::Color getColor();
 private:
     std::string str1;
     std::string str2;

@@ -50,3 +50,5 @@ void Enemy1::update(float dt)
 
     move(dt);
 }
+
+sf::Color Enemy1::getColor() { return sprite.getColor(); }

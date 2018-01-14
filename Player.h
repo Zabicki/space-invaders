@@ -37,6 +37,7 @@ public:
     sf::Text getLivesText();
     sf::Sprite* getLivesSprite();
     Direction direction;
+    sf::Color getColor();
 private:
     bool alive;
     int lives;
@@ -50,7 +51,7 @@ private:
     const float movingSpeed; //constant, helps the 'speed' variable to set it's proper value
     float speed; //changed whether the direction changes
     Points points;
-    //lives drawing
+    //drawing lives
     sf::Text lives_text;
     sf::Font lives_font;
 };
