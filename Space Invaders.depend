@@ -134,7 +134,7 @@
 	"State.h"
 	"StatePlay.h"
 
-1514331111 /home/chrisfrog/git/Space-Invaders/StatePlay.h
+1515901101 /home/chrisfrog/git/Space-Invaders/StatePlay.h
 	"State.h"
 	"Player.h"
 	"Bullet.h"
@@ -142,6 +142,7 @@
 	"Enemy1.h"
 	"CollisionSystem.h"
 	"Ufo.h"
+	"Explosion.h"
 
 1515621207 /home/chrisfrog/git/Space-Invaders/Player.h
 	<SFML/Graphics.hpp>
@@ -151,7 +152,7 @@
 	"Points.h"
 	<iostream>
 
-1515622213 source:/home/chrisfrog/git/Space-Invaders/Player.cpp
+1515626264 source:/home/chrisfrog/git/Space-Invaders/Player.cpp
 	"Player.h"
 
 1514164275 source:/home/chrisfrog/git/Space-Invaders/State.cpp
@@ -160,7 +161,7 @@
 1514164275 source:/home/chrisfrog/git/Space-Invaders/StateManager.cpp
 	"StateManager.h"
 
-1515622381 source:/home/chrisfrog/git/Space-Invaders/StatePlay.cpp
+1515902701 source:/home/chrisfrog/git/Space-Invaders/StatePlay.cpp
 	"StatePlay.h"
 
 1515619846 source:/home/chrisfrog/git/Space-Invaders/Window.cpp
@@ -175,15 +176,16 @@
 1515621491 source:/home/chrisfrog/git/Space-Invaders/Points.cpp
 	"Points.h"
 
-1514336780 source:/home/chrisfrog/git/Space-Invaders/CollisionSystem.cpp
+1515902044 source:/home/chrisfrog/git/Space-Invaders/CollisionSystem.cpp
 	"CollisionSystem.h"
 
-1514311628 /home/chrisfrog/git/Space-Invaders/CollisionSystem.h
+1515901972 /home/chrisfrog/git/Space-Invaders/CollisionSystem.h
 	"Bullet.h"
 	"Player.h"
 	"Enemy.h"
 	"Window.h"
 	"Ufo.h"
+	"Explosion.h"
 
 1514311105 /home/chrisfrog/git/Space-Invaders/Ufo.h
 	"Window.h"
@@ -191,4 +193,10 @@
 
 1515622564 source:/home/chrisfrog/git/Space-Invaders/Ufo.cpp
 	"Ufo.h"
+
+1515900885 /home/chrisfrog/git/Space-Invaders/Explosion.h
+	<SFML/Graphics.hpp>
+
+1515902585 source:/home/chrisfrog/git/Space-Invaders/Explosion.cpp
+	"Explosion.h"
 

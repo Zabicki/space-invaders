@@ -28,7 +28,7 @@ bool CollisionSystem::checkPlayerHit(Player* player,std::vector<Bullet*>* enemyB
     }
 }
 
-bool CollisionSystem::checkEnemiesHit(std::vector<Enemy*>* enemies,std::vector<Bullet*>* playerBullets, Player* player)
+bool CollisionSystem::checkEnemiesHit(std::vector<Enemy*>* enemies,std::vector<Bullet*>* playerBullets, Player* player, std::vector<Explosion*>* explosions)
 {
     bool flag;
     for(std::vector<Bullet*>::iterator it = playerBullets->begin(); it != playerBullets->end();)
@@ -43,6 +43,7 @@ bool CollisionSystem::checkEnemiesHit(std::vector<Enemy*>* enemies,std::vector<B
                 playerBullets->erase(it);
                 //destroy enemy
                 (*i)->destroy();
+                explosions->push_back(new Explosion((*i)->getSprite()->getPosition()));
                 delete *i;
                 enemies->erase(i);
 
@@ -156,7 +157,7 @@ bool CollisionSystem::checkEnemySideCollision(std::vector<Enemy*>* enemies)
     return false;
 }
 
-bool CollisionSystem::checkUfoCollision(Ufo* ufo, std::vector<Bullet*>* playerBullets)
+bool CollisionSystem::checkUfoCollision(Ufo* ufo, std::vector<Bullet*>* playerBullets, std::vector<Explosion*>* explosions)
 {
     for(std::vector<Bullet*>::iterator it = playerBullets->begin(); it != playerBullets->end();)
     {
@@ -165,7 +166,7 @@ bool CollisionSystem::checkUfoCollision(Ufo* ufo, std::vector<Bullet*>* playerBu
             //destroy bullet
             delete *it;
             playerBullets->erase(it);
-
+            explosions->push_back(new Explosion(ufo->getSprite()->getPosition()));
             delete ufo;
             ufo = NULL;
             break;

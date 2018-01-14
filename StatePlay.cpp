@@ -1,5 +1,11 @@
 #include "StatePlay.h"
 
+/*
+TODO
+[]Wektor eksplozji, odejmowanie czasu, sprawdzanie czy czas minal, jak tak to usuwany z wektora
+
+*/
+
 StatePlay::StatePlay()
 {
     spawnEnemies(55);
@@ -31,12 +37,13 @@ void StatePlay::update(float timeStep)
         }
         else
         {
+            explosions.push_back(new Explosion(ufo->getSprite()->getPosition()));
             delete ufo;
             ufo = NULL;
         }
         if (ufo != NULL)
         {
-            if (cs.checkUfoCollision(ufo, &playerBullets))
+            if (cs.checkUfoCollision(ufo, &playerBullets, &explosions))
             {
                 ufo = NULL;
                 player.getPoints()->add(500);
@@ -72,7 +79,7 @@ void StatePlay::update(float timeStep)
     player.update(timeStep);
 
     //checks if enemies get hit with player's bullets
-    cs.checkEnemiesHit(&enemies, &playerBullets, &player);
+    cs.checkEnemiesHit(&enemies, &playerBullets, &player, &explosions);
 
     //check collision between enemy's and player's bullets
     cs.checkBulletsCollision(&enemyBullets, &playerBullets);
@@ -93,6 +100,22 @@ void StatePlay::update(float timeStep)
             substract = true;
         (*it)->update(timeStep);
         ++i;
+    }
+
+    //updating explosions' time
+    for (std::vector<Explosion*>::iterator it = explosions.begin(); it != explosions.end();)
+    {
+        if ((*it)->getTotalTime() <= 0)
+        {
+            delete *it;
+            explosions.erase(it);
+            continue;
+        }
+        else
+        {
+            (*it)->update(timeStep);
+            ++it;
+        }
     }
 
     //check if player is hit with enemy's bullets
@@ -121,6 +144,11 @@ void StatePlay::render()
     }
 
     for (std::vector<Bullet*>::iterator it = enemyBullets.begin(); it != enemyBullets.end(); ++it)
+    {
+        Window::instance().getWindow()->draw(*(*it)->getSprite());
+    }
+
+    for (std::vector<Explosion*>::iterator it = explosions.begin(); it != explosions.end(); ++it)
     {
         Window::instance().getWindow()->draw(*(*it)->getSprite());
     }

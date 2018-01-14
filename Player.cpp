@@ -85,7 +85,6 @@ bool Player::shoot()
 {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && canShoot)
     {
-        std::cout << "Shooting\n";
         canShoot = false;
         substract = true;
         return true;
@@ -101,7 +100,6 @@ Points* Player::getPoints()
 void Player::damage()
 {
     lives--;
-    std::cout << lives << std::endl;
     lives_text.setString(std::to_string(lives));
     if (lives == 0)
         destroy();

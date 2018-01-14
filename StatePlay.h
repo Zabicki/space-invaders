@@ -6,6 +6,7 @@
 #include "Enemy1.h"
 #include "CollisionSystem.h"
 #include "Ufo.h"
+#include "Explosion.h"
 
 class StatePlay : public State
 {
@@ -22,7 +23,8 @@ private:
     CollisionSystem cs;
     std::vector<Bullet*> playerBullets;
     std::vector<Bullet*> enemyBullets;
-    std::vector <Enemy*> enemies;
+    std::vector<Enemy*> enemies;
+    std::vector<Explosion*> explosions;
     Ufo* ufo;
     float movingCooldown;
     bool substract;
