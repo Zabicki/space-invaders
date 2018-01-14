@@ -18,6 +18,7 @@ public:
     Enemy();
     virtual ~Enemy();
     virtual void move(float dt);
+    virtual void move2(float dt);
     virtual bool shoot();
     virtual void update(float dt) = 0;
     virtual sf::Sprite* getSprite();
@@ -28,10 +29,13 @@ public:
     static unsigned int set; //numbers from 0 to set, random number will be drawn and compared to shotChance
     virtual void moveDown();
     virtual bool random();
+    virtual void setPosition(sf::Vector2f pos);
+    void setSpeed2(float);
 protected:
     sf::Sprite sprite; //later switched to sf::Texture
     sf::Texture texture;
     float fireRate;
+    float speed2;
     unsigned int ID;
     float animationTimer;
     bool img1;

@@ -15,9 +15,10 @@ public:
     ~StatePlay() {};
     virtual void update(float);
     virtual void render();
-    virtual void handleInput();
-    void pollEvent();
+    virtual int handleInput(); //returns nr of state if change is needed
+    int pollEvent();
     void spawnEnemies(int amount);
+    virtual void prepare();
 private:
     Player player;
     CollisionSystem cs;

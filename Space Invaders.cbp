@@ -39,6 +39,8 @@
 		</Linker>
 		<Unit filename="Bullet.cpp" />
 		<Unit filename="Bullet.h" />
+		<Unit filename="Button.cpp" />
+		<Unit filename="Button.h" />
 		<Unit filename="CollisionSystem.cpp" />
 		<Unit filename="CollisionSystem.h" />
 		<Unit filename="Enemy.cpp" />
@@ -51,12 +53,18 @@
 		<Unit filename="Player.h" />
 		<Unit filename="Points.cpp" />
 		<Unit filename="Points.h" />
+		<Unit filename="Sound.cpp" />
+		<Unit filename="Sound.h" />
 		<Unit filename="State.cpp" />
 		<Unit filename="State.h" />
 		<Unit filename="StateManager.cpp" />
 		<Unit filename="StateManager.h" />
+		<Unit filename="StateMenu.cpp" />
+		<Unit filename="StateMenu.h" />
 		<Unit filename="StatePlay.cpp" />
 		<Unit filename="StatePlay.h" />
+		<Unit filename="StateScores.cpp" />
+		<Unit filename="StateScores.h" />
 		<Unit filename="Ufo.cpp" />
 		<Unit filename="Ufo.h" />
 		<Unit filename="Window.cpp" />

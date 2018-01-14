@@ -4,32 +4,23 @@
 #include "StateManager.h"
 #include "Player.h"
 #include "Bullet.h"
-
-/*
-TODO
-[]State mechanism similar to the Flashcards project but upgraded and fixed
-[X]Firstly only game state, latter states (menu, options etc) in the end of the project
-[X]Fixed step loop targeted at 60 fps (physics mostly)
-[X]main loop simple look:
-    while (window->isOpen())
-    {
-        state->getInput(); <--not necessary
-        state->update();
-        state->render();
-        //handle 60 fps
-    }
-*/
+#include "Sound.h"
 
 int main()
 {
     StateManager* stateManager = new StateManager();
     State* state;
-    state = stateManager->changeState(PLAY);
+    state = stateManager->changeState(MENU);
     sf::Clock clock;
     sf::Time timeSinceLastUpdate = sf::Time::Zero;
+    int tmp = 0;
+    Sound::instance().playSoundtrack();
     while (Window::instance().getWindow()->isOpen())
     {
-        state->handleInput();
+        tmp = state->handleInput();
+        if (tmp != 0)
+            state = stateManager->changeState((STATE)tmp);
+
         timeSinceLastUpdate += clock.restart();
         while (timeSinceLastUpdate > sf::seconds(1.f / 60.f))
         {

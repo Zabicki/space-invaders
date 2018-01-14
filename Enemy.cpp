@@ -45,9 +45,18 @@ void Enemy::move(float dt)
     sprite.move(speed * dt, 0);
 }
 
+void Enemy::move2(float dt)
+{
+    sprite.move(0, speed2 * dt);
+}
+
 bool Enemy::shoot()
 {
     if (random())
         return true;
     return false;
 }
+
+void Enemy::setSpeed2(float s) { speed2 = s; }
+
+void Enemy::setPosition(sf::Vector2f pos) { sprite.setPosition(pos); }

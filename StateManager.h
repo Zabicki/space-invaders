@@ -1,14 +1,16 @@
 #pragma once
 #include "State.h"
 #include "StatePlay.h"
+#include "StateMenu.h"
+#include "StateScores.h"
 
 enum STATE
 {
     NOT_SET = 0,
     MENU,
     PLAY,
-    OPTIONS,
-    SCORES
+    SCORES,
+    OPTIONS
 };
 
 class StateManager
@@ -20,7 +22,7 @@ public:
 private:
     State* statePlay;
     STATE currentState;
-    //stateMenu
+    State* stateMenu;
+    State* stateScores;
     //stateOptions
-    //stateScores
 };

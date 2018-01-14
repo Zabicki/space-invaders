@@ -2,7 +2,7 @@
 
 /*
 TODO
-[]Wektor eksplozji, odejmowanie czasu, sprawdzanie czy czas minal, jak tak to usuwany z wektora
+[X]Wektor eksplozji, odejmowanie czasu, sprawdzanie czy czas minal, jak tak to usuwany z wektora
 
 */
 
@@ -159,20 +159,26 @@ void StatePlay::render()
     Window::instance().getWindow()->display();
 }
 
-void StatePlay::pollEvent()
+int StatePlay::pollEvent()
 {
     sf::Event event;
     while (Window::instance().getWindow()->pollEvent(event))
     {
-        if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+        if (event.type == sf::Event::Closed)
+        {
             Window::instance().getWindow()->close();
+            return 0; //not set
+        }
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+            return 1; //menu
         player.handleInput(event);
     }
+    return 0;
 }
 
-void StatePlay::handleInput()
+int StatePlay::handleInput()
 {
-    pollEvent();
+    return pollEvent();
 }
 
 void StatePlay::spawnEnemies(int amount)
@@ -213,4 +219,15 @@ void StatePlay::spawnEnemies(int amount)
         }
         enemies.push_back(new Enemy1(enemyPosition, i, textures[tex], textures[tex+1], colors[col]));
     }
+}
+
+void StatePlay::prepare()
+{
+    //empty event queue
+    sf::Event event;
+    while (Window::instance().getWindow()->pollEvent(event)) {}
+    Enemy::speed = -100;
+    Enemy::direction = left;
+    Enemy::shotChance = 10;
+    Enemy::set = 100000;
 }

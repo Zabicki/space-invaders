@@ -14,6 +14,7 @@ Bullet::Bullet(sf::Vector2f position, float speed, sf::Color color)
     sprite.setOrigin(texture.getSize().x / 2, texture.getSize().y / 2);
     sprite.setPosition(position);
     sprite.setColor(color);
+    sprite.setScale(1.5, 1.5);
     time = 0.3f;
     this->speed = speed;
     t1 = true;

@@ -2,14 +2,14 @@
 
 Enemy1::Enemy1()
 {
-    sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
-    srand(time(NULL));
+
 }
 
-Enemy1::Enemy1(sf::Vector2f position, int id, std::string str1, std::string str2, sf::Color color)
+Enemy1::Enemy1(sf::Vector2f position, int id, std::string str1, std::string str2, sf::Color color, bool sideMovement)
 {
     this->str1 = str1;
     this->str2 = str2;
+    this->sideMovement = sideMovement;
     texture.loadFromFile(str1);
     sprite.setTexture(texture);
     sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
@@ -47,8 +47,8 @@ void Enemy1::update(float dt)
     }
     else
         animationTimer -= dt;
-
-    move(dt);
+    if (sideMovement)
+        move(dt);
 }
 
 sf::Color Enemy1::getColor() { return sprite.getColor(); }
