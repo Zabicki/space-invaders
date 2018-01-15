@@ -152,3 +152,9 @@ void Player::reset()
     points.reset();
     lives_text.setString(std::to_string(lives));
 }
+
+void Player::kill()
+{
+    lives = 0;
+    alive = false;
+}

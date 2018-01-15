@@ -1,12 +1,9 @@
 #include "StatePlay.h"
 
-/*
-TODO
-[X]Wektor eksplozji, odejmowanie czasu, sprawdzanie czy czas minal, jak tak to usuwany z wektora
-
-*/
-
 StatePlay::StatePlay()
+:message("Highscore! Enter your name", 400, 100, "resources/space_font.ttf"),
+nickCaption("", 400, 150, "resources/space_font.ttf"),
+levelCaption("", 400, 300, "resources/space_font.ttf")
 {
     ufo = new Ufo();
     movingCooldown = 0.1f;
@@ -44,6 +41,21 @@ StatePlay::StatePlay()
     spawnEnemies(level[currentLevel]);
     enemyAmount = level[currentLevel].amount;
     ufoCooldown = 20.f;
+    file.open("resources/data.txt", std::ios::in);
+    for (int i = 0; i < 10; i++)
+    {
+        file >> records[i].score;
+        file >> records[i].nick;
+    }
+    enterName = false;
+    file.close();
+    for (int i = 0; i < 10; i++)
+    {
+        std::cout << records[i].score << std::endl;
+        std::cout << records[i].nick << std::endl;
+    }
+    printLevel = false;
+    levelCaptionTimer = 2.0f;
 }
 
 void StatePlay::update(float timeStep)
@@ -65,7 +77,11 @@ void StatePlay::update(float timeStep)
     }
 
     if (!player.isAlive())
+    {
         pause = true;
+        if (player.getPoints()->getScore() >= records[9].score)
+            enterName = true;
+    }
 
     if (ufo != NULL)
     {
@@ -169,6 +185,17 @@ void StatePlay::update(float timeStep)
         prepare();
         player.getPoints()->add(points);
     }
+
+    if (printLevel && levelCaptionTimer > 0)
+    {
+        levelCaptionTimer -= timeStep;
+    }
+    else
+    {
+        printLevel = false;
+        levelCaptionTimer = 3.0f;
+    }
+
 }
 
 void StatePlay::render()
@@ -212,6 +239,17 @@ void StatePlay::render()
         Window::instance().getWindow()->draw(tryAgainText);
     }
 
+
+    if (enterName && pause)
+    {
+        Window::instance().getWindow()->draw(nickCaption.getText());
+        Window::instance().getWindow()->draw(message.getText());
+    }
+    if (printLevel)
+    {
+        Window::instance().getWindow()->draw(levelCaption.getText());
+    }
+
     Window::instance().getWindow()->display();
 }
 
@@ -239,6 +277,37 @@ int StatePlay::pollEvent()
             {
                 prepare();
                 return 0;
+            }
+        }
+        if (enterName)
+        {
+            if (event.type == sf::Event::TextEntered)
+            {
+                if (event.text.unicode < 128)
+                {
+                    if (event.text.unicode == 13)
+                    {
+                        int it = 0;
+                        std::string tmp;
+                        for (it = 9; player.getPoints()->getScore() > records[it-1].score || it > 0; it--)
+                        {
+                            records[it-1].nick = tmp;
+                            records[it].nick = tmp;
+                            records[it].score = records[it - 1].score;
+                        }
+                        records[it].score = player.getPoints()->getScore();
+                        records[it].nick = nickCaption.getString();
+                        //saveToFile();
+                        enterName = false;
+                        nickCaption.setString("");
+                    }
+                    else if (event.text.unicode == 8)
+                        nickCaption.escape();
+                    else
+                    {
+                        nickCaption.add(event);
+                    }
+                }
             }
         }
         player.handleInput(event);
@@ -310,4 +379,25 @@ void StatePlay::prepare()
     Enemy::direction = left;
     Enemy::shotChance = 10;
     Enemy::set = 100000;
+    std::string tmp = "Level " + std::to_string(level[currentLevel].id + 1);
+    levelCaption.setString(tmp);
+    printLevel = true;
+}
+
+void StatePlay::saveToFile()
+{
+    file.open("resources/data.txt", std::ios::out);
+
+    for (int i = 0; i < 10; i++)
+    {
+        std::cout << records[i].score << std::endl;
+        std::cout << records[i].nick << std::endl;
+    }
+    for (int i = 0; i < 10; i++)
+    {
+        file << records[i].score;
+        file << " ";
+        file << records[i].nick;
+        file << "\n";
+    }
 }

@@ -42,6 +42,8 @@
 		<Unit filename="Bullet.h" />
 		<Unit filename="Button.cpp" />
 		<Unit filename="Button.h" />
+		<Unit filename="Caption.cpp" />
+		<Unit filename="Caption.h" />
 		<Unit filename="CollisionSystem.cpp" />
 		<Unit filename="CollisionSystem.h" />
 		<Unit filename="Enemy.cpp" />

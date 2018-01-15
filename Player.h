@@ -33,6 +33,7 @@ public:
     Direction direction;
     sf::Color getColor();
     void reset();
+    void kill();
 private:
     bool alive;
     int lives;

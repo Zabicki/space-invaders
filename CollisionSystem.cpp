@@ -36,6 +36,12 @@ bool CollisionSystem::checkEnemiesHit(std::vector<Enemy*>* enemies,std::vector<B
         flag = false;
         for(std::vector<Enemy*>::iterator i = enemies->begin(); i != enemies->end();)
         {
+            if (player->getSprite()->getGlobalBounds().intersects((*i)->getSprite()->getGlobalBounds()))
+            {
+                player->kill();
+            }
+            else if ((*i)->getSprite()->getPosition().y >= 600)
+                player->kill();
             if ((*it)->getSprite()->getGlobalBounds().intersects((*i)->getSprite()->getGlobalBounds()))
             {
                 //destroy bullet
@@ -46,6 +52,8 @@ bool CollisionSystem::checkEnemiesHit(std::vector<Enemy*>* enemies,std::vector<B
                 explosions->push_back(new Explosion((*i)->getSprite()->getPosition()));
                 delete *i;
                 enemies->erase(i);
+
+
 
                 //add points
                 player->getPoints()->add();
