@@ -10,5 +10,4 @@ public:
     virtual void update(float dt);
     virtual void move(float dt);
 private:
-
 };

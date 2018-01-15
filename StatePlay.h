@@ -45,4 +45,5 @@ private:
     sf::Text tryAgainText;
     sf::Font font;
     Level level[10];
+    float ufoCooldown;
 };

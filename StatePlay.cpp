@@ -43,6 +43,7 @@ StatePlay::StatePlay()
     currentLevel = 0;
     spawnEnemies(level[currentLevel]);
     enemyAmount = level[currentLevel].amount;
+    ufoCooldown = 20.f;
 }
 
 void StatePlay::update(float timeStep)
@@ -53,6 +54,15 @@ void StatePlay::update(float timeStep)
     }
     if (substract)
         movingCooldown -= timeStep;
+
+    if (ufoCooldown > 0)
+        ufoCooldown -= timeStep;
+    else
+    {
+        ufoCooldown = 20.f;
+        delete ufo;
+        ufo = new Ufo();
+    }
 
     if (!player.isAlive())
         pause = true;
@@ -155,7 +165,9 @@ void StatePlay::update(float timeStep)
     if (enemyAmount == 0)
     {
         currentLevel++;
+        int points = player.getPoints()->getScore();
         prepare();
+        player.getPoints()->add(points);
     }
 }
 

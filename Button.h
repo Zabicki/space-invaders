@@ -7,6 +7,7 @@ class Button
 public:
     Button() {};
     Button(sf::Vector2f position, std::string caption);
+    Button(sf::Vector2f position, std::string caption, std::string tex1, std::string tex2);
     ~Button();
     bool checkMouseInput(sf::Event);
     bool clickOnButton();
@@ -22,6 +23,7 @@ private:
     bool leftClick;
     bool normal;
     bool hover;
+    bool soundButton;
     sf::Vector2i clickCoords;
     sf::Text text;
     sf::Font font;

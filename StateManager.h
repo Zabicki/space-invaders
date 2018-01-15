@@ -3,15 +3,13 @@
 #include "StatePlay.h"
 #include "StateMenu.h"
 #include "StateScores.h"
-#include "StateOptions.h"
 
 enum STATE
 {
     NOT_SET = 0,
     MENU,
     PLAY,
-    SCORES,
-    OPTIONS
+    SCORES
 };
 
 class StateManager
@@ -25,5 +23,4 @@ private:
     STATE currentState;
     State* stateMenu;
     State* stateScores;
-    State* stateOptions;
 };

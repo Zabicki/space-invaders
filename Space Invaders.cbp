@@ -62,8 +62,6 @@
 		<Unit filename="StateManager.h" />
 		<Unit filename="StateMenu.cpp" />
 		<Unit filename="StateMenu.h" />
-		<Unit filename="StateOptions.cpp" />
-		<Unit filename="StateOptions.h" />
 		<Unit filename="StatePlay.cpp" />
 		<Unit filename="StatePlay.h" />
 		<Unit filename="StateScores.cpp" />

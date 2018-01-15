@@ -5,7 +5,8 @@ StateOptions::StateOptions()
 soundtrackButton({Window::instance().getWindow()->getSize().x / 4, Window::instance().getWindow()->getSize().y / 3},""),
 soundButton({3 * Window::instance().getWindow()->getSize().x / 4, Window::instance().getWindow()->getSize().y / 3},"")
 {
-
+    soundActivated = true;
+    soundtrackActivated = true;
 }
 
 StateOptions::~StateOptions()
@@ -43,6 +44,20 @@ int StateOptions::pollEvent()
         {
             Sound::instance().playEscapeSound();
             return 1;
+        }
+        if (buttonSound.checkMouseInput(event))
+        {
+            Sound::instance().playButtonSound();
+            if (soundActivated)
+            {
+                soundActivated = false;
+
+            }
+            else
+            {
+                soundActivated = true;
+                Sound()::instance().play
+            }
         }
     }
 }

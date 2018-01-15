@@ -40,3 +40,5 @@ void Points::reset()
     score = 0;
     setString();
 }
+
+int Points::getScore() { return score; }

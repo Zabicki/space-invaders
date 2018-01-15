@@ -13,6 +13,7 @@ public:
     void add(int amount = 100);
     void setString();
     void reset();
+    int getScore();
 private:
     int score;
     sf::Font font;

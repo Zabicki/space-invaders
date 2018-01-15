@@ -4,10 +4,9 @@
 
 StateMenu::StateMenu()
 :
-buttonStart({Window::instance().getWindow()->getSize().x / 2, 110}, "start"),
-buttonScores({Window::instance().getWindow()->getSize().x / 2, 240}, "high scores"),
-buttonOptions({Window::instance().getWindow()->getSize().x / 2, 370}, "options"),
-buttonExit({Window::instance().getWindow()->getSize().x / 2, 500}, "exit")
+buttonStart({Window::instance().getWindow()->getSize().x / 2, 150}, "start"),
+buttonScores({Window::instance().getWindow()->getSize().x / 2, 300}, "high scores"),
+buttonExit({Window::instance().getWindow()->getSize().x / 2, 450}, "exit")
 {
     srand(time(NULL));
     float speed;
@@ -122,7 +121,6 @@ void StateMenu::render()
     Window::instance().getWindow()->draw(*buttonExit.getSprite());
     Window::instance().getWindow()->draw(*buttonStart.getText());
     Window::instance().getWindow()->draw(*buttonScores.getText());
-    Window::instance().getWindow()->draw(*buttonOptions.getText());
     Window::instance().getWindow()->draw(*buttonExit.getText());
 
     for (int i = 0; i < 10; i++)
@@ -153,11 +151,6 @@ int StateMenu::pollEvent()
         {
             Sound::instance().playButtonSound();
             return 3;
-        }
-        if (buttonOptions.checkMouseInput(event))
-        {
-            Sound::instance().playButtonSound();
-            return 4;
         }
     }
 }

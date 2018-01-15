@@ -18,4 +18,6 @@ public:
 private:
     Button soundtrackButton;
     Button soundButton;
+    bool soundActivated;
+    bool soundtrackActivated;
 };
