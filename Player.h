@@ -6,12 +6,6 @@
 #include "Points.h"
 #include <iostream>
 
-/*
-TODO
-[X]Fix shooting bug when changing direction (delay)
-
-*/
-
 enum Direction
 {
     NONE,
@@ -38,6 +32,7 @@ public:
     sf::Sprite* getLivesSprite();
     Direction direction;
     sf::Color getColor();
+    void reset();
 private:
     bool alive;
     int lives;

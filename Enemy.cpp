@@ -24,7 +24,10 @@ sf::Sprite* Enemy::getSprite()
 
 void Enemy::destroy()
 {
-
+    if (speed < 0)
+        speed -= 10;
+    else
+        speed += 10;
 }
 
 void Enemy::moveDown()

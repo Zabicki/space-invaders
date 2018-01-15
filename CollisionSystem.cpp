@@ -28,7 +28,7 @@ bool CollisionSystem::checkPlayerHit(Player* player,std::vector<Bullet*>* enemyB
     }
 }
 
-bool CollisionSystem::checkEnemiesHit(std::vector<Enemy*>* enemies,std::vector<Bullet*>* playerBullets, Player* player, std::vector<Explosion*>* explosions)
+bool CollisionSystem::checkEnemiesHit(std::vector<Enemy*>* enemies,std::vector<Bullet*>* playerBullets, Player* player, std::vector<Explosion*>* explosions, int &enemyAmount)
 {
     bool flag;
     for(std::vector<Bullet*>::iterator it = playerBullets->begin(); it != playerBullets->end();)
@@ -54,6 +54,9 @@ bool CollisionSystem::checkEnemiesHit(std::vector<Enemy*>* enemies,std::vector<B
                 Enemy::shotChance += 10;
 
                 //flag set to avoid std::vector<>::iterator issues
+
+                enemyAmount -= 1;
+
                 flag = true;
                 break;
             }

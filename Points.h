@@ -12,6 +12,7 @@ public:
     sf::Text getText();
     void add(int amount = 100);
     void setString();
+    void reset();
 private:
     int score;
     sf::Font font;

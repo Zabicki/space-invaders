@@ -7,6 +7,14 @@
 #include "CollisionSystem.h"
 #include "Ufo.h"
 #include "Explosion.h"
+#include "Button.h"
+
+struct Level
+{
+    int amount; //amount of enemies
+    float speed; //speed of enemies
+    int id; //level
+};
 
 class StatePlay : public State
 {
@@ -17,7 +25,7 @@ public:
     virtual void render();
     virtual int handleInput(); //returns nr of state if change is needed
     int pollEvent();
-    void spawnEnemies(int amount);
+    void spawnEnemies(struct Level);
     virtual void prepare();
 private:
     Player player;
@@ -30,4 +38,11 @@ private:
     float movingCooldown;
     bool substract;
     int i;
+    int currentLevel;
+    int enemyAmount;
+    bool pause;
+    sf::Text gameOverText;
+    sf::Text tryAgainText;
+    sf::Font font;
+    Level level[10];
 };

@@ -34,3 +34,9 @@ void Points::setString()
 {
     text.setString("score: " + std::to_string(score));
 }
+
+void Points::reset()
+{
+    score = 0;
+    setString();
+}

@@ -101,6 +101,10 @@ void Player::damage()
 {
     lives--;
     lives_text.setString(std::to_string(lives));
+    if (lives == 2)
+        lives_sprite.setColor(sf::Color::Yellow);
+    if (lives == 1)
+        lives_sprite.setColor(sf::Color::Red);
     if (lives == 0)
         destroy();
 }
@@ -133,3 +137,18 @@ sf::Sprite* Player::getLivesSprite()
 }
 
 sf::Color Player::getColor() { return sprite.getColor(); }
+
+void Player::reset()
+{
+    speed = 0;
+    direction = NONE;
+    canShoot = true;
+    substract = false;
+    reloadTime = 0.5f;
+    timer = reloadTime;
+    lives = 3;
+    lives_sprite.setColor(sf::Color::Green);
+    alive = true;
+    points.reset();
+    lives_text.setString(std::to_string(lives));
+}
