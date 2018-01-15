@@ -5,6 +5,7 @@
 #include "Window.h"
 #include "Ufo.h"
 #include "Explosion.h"
+#include "Sound.h"
 
 class CollisionSystem
 {

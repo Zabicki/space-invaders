@@ -50,6 +50,7 @@ bool CollisionSystem::checkEnemiesHit(std::vector<Enemy*>* enemies,std::vector<B
                 //destroy enemy
                 (*i)->destroy(enemyAmount);
                 explosions->push_back(new Explosion((*i)->getSprite()->getPosition()));
+                Sound::instance().playExplosionSound();
                 delete *i;
                 enemies->erase(i);
 
@@ -177,9 +178,10 @@ bool CollisionSystem::checkUfoCollision(Ufo* ufo, std::vector<Bullet*>* playerBu
             delete *it;
             playerBullets->erase(it);
             explosions->push_back(new Explosion(ufo->getSprite()->getPosition()));
+            Sound::instance().playExplosionSound();
             delete ufo;
             ufo = NULL;
-            break;
+            return true;
         }
         else
             ++it;

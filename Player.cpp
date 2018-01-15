@@ -25,7 +25,7 @@ Player::Player()
     direction = NONE;
     canShoot = true;
     substract = false;
-    reloadTime = 0.5f;
+    reloadTime = 0.4f;
     timer = reloadTime;
     lives = 3;
     alive = true;

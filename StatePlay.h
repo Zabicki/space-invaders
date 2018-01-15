@@ -64,4 +64,6 @@ private:
     float levelCaptionTimer;
     Caption levelCaption;
     bool printLevel;
+    float levelPause;
+    sf::RectangleShape bonus;
 };

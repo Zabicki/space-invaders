@@ -56,6 +56,7 @@ levelCaption("", 400, 300, "resources/space_font.ttf")
     }
     printLevel = false;
     levelCaptionTimer = 2.0f;
+    levelPause = 1.0f;
 }
 
 void StatePlay::update(float timeStep)
@@ -101,6 +102,7 @@ void StatePlay::update(float timeStep)
             {
                 ufo = NULL;
                 player.getPoints()->add(500);
+
             }
         }
 
@@ -180,10 +182,16 @@ void StatePlay::update(float timeStep)
 
     if (enemyAmount == 0)
     {
-        currentLevel++;
-        int points = player.getPoints()->getScore();
-        prepare();
-        player.getPoints()->add(points);
+        levelPause -= timeStep;
+        if (levelPause <= 0)
+        {
+            currentLevel++;
+            int points = player.getPoints()->getScore();
+            prepare();
+            player.getPoints()->add(points);
+            levelPause = 1.0f;
+        }
+
     }
 
     if (printLevel && levelCaptionTimer > 0)
@@ -264,11 +272,15 @@ int StatePlay::pollEvent()
             return 0; //not set
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+        {
+            currentLevel = 0;
             return 1; //menu
+        }
         if (pause)
         {
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::N))
             {
+                currentLevel = 0;
                 prepare();
                 return 1;
 
