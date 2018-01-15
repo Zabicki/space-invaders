@@ -5,6 +5,7 @@ StateManager::StateManager()
     statePlay = new StatePlay();
     stateMenu = new StateMenu();
     stateScores = new StateScores();
+    stateOptions = new StateOptions();
     currentState = NOT_SET;
 }
 
@@ -18,30 +19,23 @@ State* StateManager::changeState(STATE newState)
     if (newState == PLAY && currentState != PLAY)
     {
         statePlay->prepare();
-        currentState = PLAY;
         return statePlay;
     }
 
     else if (newState == MENU && currentState != MENU)
     {
         stateMenu->prepare();
-        currentState = MENU;
         return stateMenu;
     }
     else if (newState == SCORES && currentState != SCORES)
     {
         stateScores->prepare();
-        currentState = SCORES;
         return stateScores;
     }
-
-    /*
-    else if (newState = OPTIONS && currentState != OPTIONS)
+    else if (newState == OPTIONS && currentState != OPTIONS)
     {
         stateOptions->prepare();
-        currentState = OPTIONS;
         return stateOptions;
     }
-    */
     currentState = newState;
 }

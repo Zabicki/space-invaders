@@ -154,7 +154,11 @@ int StateMenu::pollEvent()
             Sound::instance().playButtonSound();
             return 3;
         }
-        buttonOptions.checkMouseInput(event);
+        if (buttonOptions.checkMouseInput(event))
+        {
+            Sound::instance().playButtonSound();
+            return 4;
+        }
     }
 }
 

@@ -42,7 +42,7 @@ bool CollisionSystem::checkEnemiesHit(std::vector<Enemy*>* enemies,std::vector<B
                 delete *it;
                 playerBullets->erase(it);
                 //destroy enemy
-                (*i)->destroy();
+                (*i)->destroy(enemyAmount);
                 explosions->push_back(new Explosion((*i)->getSprite()->getPosition()));
                 delete *i;
                 enemies->erase(i);
@@ -51,7 +51,6 @@ bool CollisionSystem::checkEnemiesHit(std::vector<Enemy*>* enemies,std::vector<B
                 player->getPoints()->add();
 
                 //increase a chance for enemies to shoot
-                Enemy::shotChance += 10;
 
                 //flag set to avoid std::vector<>::iterator issues
 

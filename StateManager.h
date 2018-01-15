@@ -3,6 +3,7 @@
 #include "StatePlay.h"
 #include "StateMenu.h"
 #include "StateScores.h"
+#include "StateOptions.h"
 
 enum STATE
 {
@@ -24,5 +25,5 @@ private:
     STATE currentState;
     State* stateMenu;
     State* stateScores;
-    //stateOptions
+    State* stateOptions;
 };

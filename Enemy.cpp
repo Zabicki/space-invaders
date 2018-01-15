@@ -22,12 +22,16 @@ sf::Sprite* Enemy::getSprite()
     return &sprite;
 }
 
-void Enemy::destroy()
+void Enemy::destroy(int amount)
 {
     if (speed < 0)
-        speed -= 10;
+        speed -= 2;
     else
-        speed += 10;
+        speed += 2;
+    if (amount > 10)
+        shotChance += 10;
+    else
+        shotChance += 50;
 }
 
 void Enemy::moveDown()

@@ -22,7 +22,7 @@ public:
     virtual bool shoot();
     virtual void update(float dt) = 0;
     virtual sf::Sprite* getSprite();
-    virtual void destroy();
+    virtual void destroy(int);
     static Dir direction;
     static float speed;
     static unsigned int shotChance;
